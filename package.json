@@ -7,8 +7,8 @@
   ],
   "scripts": {
     "lint": "nx run-many --target=lint --all",
-		"lint:fix": "nx run-many --target=lint --all --fix",
-		"format": "nx run-many --target=format --all",
+    "lint:fix": "nx run-many --target=lint --all --fix",
+    "format": "nx run-many --target=format --all",
     "build": "nx build"
   },
   "author": "Sam Choi",
