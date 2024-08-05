@@ -1,4 +1,5 @@
 import { type ElementType, type ReactNode, forwardRef } from 'react';
+import { VariantProps } from 'class-variance-authority';
 
 import { stackVariants } from './utils/stack-variants';
 import type {
@@ -6,7 +7,6 @@ import type {
 	PolymorphicComponentPropsWithRef,
 	PolymorphicRef,
 } from './types';
-import { VariantProps } from 'class-variance-authority';
 import { cn } from './utils/cn';
 
 type Props<C extends ElementType> = PolymorphicComponentProps<
