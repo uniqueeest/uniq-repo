@@ -1,0 +1,31 @@
+{
+	"name": "@uniqueeest/hooks",
+	"version": "0.0.1",
+	"main": "index.js",
+	"scripts": {
+		"build": "yarn clean && tsup",
+		"clean": "rm -rf dist"
+	},
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"devDependencies": {
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"tsup": "^8.2.4",
+		"typescript": "^5.5.4"
+	},
+	"peerDependencies": {
+		"react": "^18",
+		"react-dom": "^18"
+	}
+}
