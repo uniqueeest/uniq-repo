@@ -7,11 +7,11 @@ import {
 import { View } from './View';
 
 type Props<C extends ElementType> = PolymorphicComponentProps<C> & {
-	size: string;
-	variant: string;
+	size?: string;
+	variant?: string;
 };
 
-type ButtonType = <C extends ElementType>(
+export type ButtonType = <C extends ElementType>(
 	props: PolymorphicComponentPropsWithRef<C, Props<C>>,
 ) => ReactNode | null;
 
