@@ -2,7 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
 
-import { Post } from '@/interface/post';
+import { Post } from '@interface/post';
 
 const postsDirectory = join(process.cwd(), '_posts');
 
