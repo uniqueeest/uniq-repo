@@ -4,7 +4,7 @@ export { useLocalStorage } from './use-local-storage';
 
 export type { Callback } from './use-first-render';
 export type {
-	PromiseResult,
-	PromisePendingResult,
-	PromiseFactoryFn,
+  PromiseResult,
+  PromisePendingResult,
+  PromiseFactoryFn,
 } from './use-promise';
