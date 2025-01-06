@@ -7,12 +7,12 @@ export type Callback = () => void;
  * @param callback 처음 렌더링될 때 실행할 콜백 함수입니다.
  */
 export function useFirstRender(callback: Callback): void {
-	const firstRender = useRef(true);
+  const firstRender = useRef(true);
 
-	useEffect(() => {
-		if (firstRender.current) {
-			callback();
-			firstRender.current = false;
-		}
-	}, [callback]);
+  useEffect(() => {
+    if (firstRender.current) {
+      callback();
+      firstRender.current = false;
+    }
+  }, [callback]);
 }
