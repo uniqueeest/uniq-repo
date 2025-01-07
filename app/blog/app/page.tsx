@@ -12,7 +12,7 @@ export default function Home() {
           <li key={post.slug}>
             <Link href={`/posts/${post.slug}`}>
               <h3>{post.title}</h3>
-              <p>{post.author.name}</p>
+              <p>uniqueeest</p>
             </Link>
           </li>
         ))}
