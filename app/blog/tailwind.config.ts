@@ -18,7 +18,6 @@ export default {
         white: STYLE.colors.white,
         black: STYLE.colors.black,
       },
-      spacing: STYLE.spacing,
       borderRadius: STYLE.borderRadius,
       fontSize: STYLE.fontSize,
       fontWeight: STYLE.fontWeight,
