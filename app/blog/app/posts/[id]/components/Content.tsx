@@ -11,7 +11,7 @@ export const Content = ({ content }: ContentProps) => {
     <section
       className={cn(
         'flex items-center gap-5',
-        'lg:pb-10 lg:mx-auto lg:w-[1280px]',
+        'lg:py-10 lg:mx-auto lg:w-[1280px]',
       )}
     >
       <article
