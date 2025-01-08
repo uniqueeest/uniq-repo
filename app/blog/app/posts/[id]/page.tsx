@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug, markdownToHtml } from '@lib';
-import { Content } from './components';
+import { Content, PostHead } from './components';
 
 interface PostProps {
   params: Promise<{
@@ -21,6 +21,7 @@ export default async function Post(props: PostProps) {
 
   return (
     <section>
+      <PostHead title={post.title} date={post.date} />
       <Content content={content} />
     </section>
   );
