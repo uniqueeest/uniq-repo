@@ -1,10 +1,8 @@
 ---
-title: '멀티 파트 업로드'
+title: '멀티파트 업로드로 API Gateway 제한 극복하기'
 description: ''
 date: '2024-10-28T00:00:00Z'
 ---
-
-# 멀티파트 업로드로 API Gateway 제한 극복하기
 
 최근 프로젝트에서 파일 업로드 구현 중 AWS API Gateway의 10MB 제한에 부딪혔다.
 
@@ -29,7 +27,7 @@ AWS API Gateway REST API에는 10MB라는 요청/응답 본문 크기 제한이 
 
 ## 개선된 접근: 병렬 업로드
 
-성능 문제를 해결하기 위해 Promise.all을 사용한 병렬 업로드 방식으로 전환했다. 이를 통해 전체 업로드 시간을 3~4초로 크게 단축할 수 있었다.
+성능 문제를 해결하기 위해 `Promise.all`을 사용한 병렬 업로드 방식으로 전환했다. 이를 통해 전체 업로드 시간을 3~4초로 크게 단축할 수 있었다.
 
 ```ts
 const uploadFile = async (file: File) => {
@@ -62,7 +60,7 @@ const uploadFile = async (file: File) => {
 
 병렬 업로드 구현 후에도 백엔드에서 새로운 문제가 발생했다. 청크 파일들이 제대로 합쳐지지 않고 마지막 청크만 S3에 저장되는 현상이었다.
 
-이 문제를 해결하기 위해 pre-signed URL을 활용한 직접 업로드 방식으로 전환했다:
+이 문제를 해결하기 위해 pre-signed URL을 활용한 직접 업로드 방식으로 전환했다.
 
 1. 백엔드에 총 청크 수를 전송
 2. 백엔드에서 각 청크에 대한 pre-signed URL 생성
