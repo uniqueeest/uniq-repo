@@ -21,7 +21,9 @@
     "paths": {
       "@components/layout": ["./src/components/layout"],
       "@components/ui": ["./src/components/ui"],
+      "@constants/nickname": ["./src/constants/nickname"],
       "@lib": ["./src/lib"],
+      "@utils": ["./src/utils"],
       "@interface/*": ["./src/interface/*"]
     }
   },

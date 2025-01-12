@@ -1,4 +1,4 @@
-import { cn } from '@lib';
+import { cn } from '@utils';
 
 import markdownStyles from './markdown-styles.module.css';
 
@@ -9,10 +9,7 @@ interface ContentProps {
 export const Content = ({ content }: ContentProps) => {
   return (
     <section
-      className={cn(
-        'flex items-center gap-5',
-        'lg:py-10 lg:mx-auto lg:w-[1280px]',
-      )}
+      className={cn('flex items-center gap-5', 'lg:py-10 lg:center-1280')}
     >
       <article
         className={markdownStyles['markdown']}

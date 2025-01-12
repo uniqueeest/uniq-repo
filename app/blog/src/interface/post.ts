@@ -4,5 +4,4 @@ export type Post = {
   date: string;
   description: string;
   content: string;
-  preview?: boolean;
 };
