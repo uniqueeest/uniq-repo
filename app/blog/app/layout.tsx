@@ -13,7 +13,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'uniqueeests',
+  title: 'uniqueeest',
   icons: {
     icon: '/uniqueeest.png',
   },
