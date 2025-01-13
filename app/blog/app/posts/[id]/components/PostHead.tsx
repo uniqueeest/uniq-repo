@@ -24,7 +24,7 @@ export const PostHead = ({ title, date }: PostHeadProps) => {
         </p>
         <p className="text-xl text-blue-12 font-semibold">{NICKNAME}</p>
       </div>
-      <h2 className="font-bold text-gray-12 text-[60px]">{title}</h2>
+      <h2 className="font-bold text-gray-12 text-[50px]">{title}</h2>
     </section>
   );
 };
