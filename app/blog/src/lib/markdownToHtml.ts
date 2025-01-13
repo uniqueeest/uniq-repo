@@ -11,5 +11,8 @@ export async function markdownToHtml(markdown: string) {
     .use(rehypePrism)
     .use(rehypeStringify)
     .process(markdown);
-  return result.toString();
+
+  return result
+    .toString()
+    .replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ');
 }
