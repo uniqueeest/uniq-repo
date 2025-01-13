@@ -51,6 +51,10 @@
   @apply bg-blue-12 mx-px px-1.5 py-0.5 rounded text-sm text-white;
 }
 
+.markdown pre > code {
+  @apply text-sm;
+}
+
 /* 인용구 */
 .markdown blockquote {
   @apply border-l-4 border-gray-200 pl-4 italic;
