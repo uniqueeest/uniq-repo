@@ -5,7 +5,8 @@
     "lint": "nx run-many --target=lint --all",
     "lint:fix": "nx run-many --target=lint --all --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "build": "nx build"
+    "build": "npx nx build",
+    "build:blog": "npx nx build @uniqueeest/blog"
   },
   "author": "Sam Choi",
   "license": "MIT",
