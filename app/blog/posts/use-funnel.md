@@ -1,6 +1,6 @@
 ---
 title: 'use-funnel 구현과 안드로이드 웹뷰 History 이슈 해결하기'
-description: '@toss/use-funnel을 참고한 Funnel 구현과 안드로이드 물리 버튼 대응'
+description: '@use-funnel을 참고한 Funnel 구현과 안드로이드 물리 버튼 대응'
 date: '2024-12-21T00:00:00Z'
 ---
 
