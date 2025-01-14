@@ -1,51 +1,21 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "storybook-static/**"
-      ],
-      "env": ["GOOGLE_CLIENT_SECRET", "JWT_SECRET"],
-      "cache": true,
-      "persistent": false
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
-    },
-    "test": {
-      "cache": false,
-      "persistent": true
-    },
-    "ci:test": {
-      "cache": true,
-      "persistent": false,
-      "outputs": ["test-results.json"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "storybook": {
+    "test": {
       "cache": false,
       "persistent": true
-    },
-    "dev:xion": {
-      "cache": false,
-      "persistent": true
-    },
-    "test:type": {
-      "cache": false,
-      "persistent": false
-    },
-    "generate-types": {
-      "cache": false,
-      "persistent": false
     }
   },
   "remoteCache": {
