@@ -1,5 +1,5 @@
 .markdown {
-  @apply text-lg leading-relaxed text-gray-12;
+  @apply w-full text-base leading-relaxed text-gray-12 lg:text-lg;
 }
 
 /* 기본 텍스트 요소 */
@@ -7,26 +7,26 @@
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply my-2 break-keep;
+  @apply text-base my-1 lg:break-keep lg:text-lg lg:my-2;
 }
 
 /* 제목 스타일링 */
 .markdown h1 {
-  @apply text-3xl font-bold mt-12 mb-6;
+  @apply text-2xl mt-6 mb-3 font-bold lg:text-3xl lg:mt-12 lg:mb-6;
 }
 
 .markdown h2 {
-  @apply text-2xl font-semibold mt-8 mb-4;
+  @apply text-xl mt-4 mb-2 font-semibold lg:text-2xl lg:mt-8 lg:mb-4;
 }
 
 .markdown h3 {
-  @apply text-xl font-medium my-4;
+  @apply text-lg font-medium my-2 lg:my-4 lg:text-xl;
 }
 
 /* 리스트 스타일링 */
 .markdown ul,
 .markdown ol {
-  @apply pl-5;
+  @apply pl-3 lg:pl-5;
 }
 
 .markdown ul {
@@ -38,7 +38,7 @@
 }
 
 .markdown li {
-  @apply mb-2;
+  @apply mb-1 lg:mb-2;
 }
 
 /* 강조 텍스트 */
@@ -48,11 +48,11 @@
 
 /* 인라인 코드 */
 .markdown :not(pre) > code {
-  @apply bg-blue-12 mx-px px-1.5 py-0.5 rounded text-sm text-white;
+  @apply text-xs bg-blue-12 mx-px px-1 py-px rounded lg:text-sm text-white lg:px-1.5 lg:py-0.5;
 }
 
 .markdown pre > code {
-  @apply text-sm;
+  @apply text-xs lg:text-sm;
 }
 
 /* 인용구 */
