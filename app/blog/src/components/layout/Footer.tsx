@@ -5,7 +5,7 @@ export const Footer = () => {
     <footer
       className={cn(
         'relative',
-        'lg:py-5 h-24 lg:h-72',
+        'lg:py-5 h-28 lg:h-72',
         'bg-gray-4',
         'overflow-hidden',
       )}
@@ -13,7 +13,7 @@ export const Footer = () => {
       <h3
         className={cn(
           'absolute top-3 left-3 lg:top-0 lg:left-10',
-          'text-[80px] font-bold text-gray-10 lg:text-[300px]',
+          'text-[100px] font-bold text-gray-10 lg:text-[300px]',
         )}
       >
         FOOTER
@@ -21,7 +21,7 @@ export const Footer = () => {
       <p
         className={cn(
           'absolute top-3 right-3 lg:top-8 lg:right-12',
-          'text-sm lg:text-xl text-gray-11 lg:font-medium',
+          'text-sm lg:text-xl text-gray-9 lg:font-medium',
         )}
       >
         dbswo9795@gmail.com
