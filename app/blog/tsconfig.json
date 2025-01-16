@@ -23,6 +23,7 @@
       "@components/ui": ["./src/components/ui"],
       "@constants/nickname": ["./src/constants/nickname"],
       "@constants/contact": ["./src/constants/contact"],
+      "@constants/url": ["./src/constants/url"],
       "@lib": ["./src/lib"],
       "@utils": ["./src/utils"],
       "@interface/*": ["./src/interface/*"]

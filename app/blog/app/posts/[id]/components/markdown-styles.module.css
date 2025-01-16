@@ -26,7 +26,7 @@
 /* 리스트 스타일링 */
 .markdown ul,
 .markdown ol {
-  @apply pl-3 lg:pl-5;
+  @apply pl-5;
 }
 
 .markdown ul {

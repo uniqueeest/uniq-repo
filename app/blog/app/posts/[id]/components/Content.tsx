@@ -9,10 +9,7 @@ interface ContentProps {
 export const Content = ({ content }: ContentProps) => {
   return (
     <section
-      className={cn(
-        'flex items-center gap-5',
-        'py-5 px-3 lg:py-10 lg:center-1280',
-      )}
+      className={cn('flex items-center gap-5', 'py-5 lg:py-10 lg:center-1280')}
     >
       <article
         className={markdownStyles['markdown']}
