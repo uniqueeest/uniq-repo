@@ -1,7 +1,10 @@
-import { Metadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAllPosts, getPostBySlug, markdownToHtml } from '@lib';
+
+import { getPostBySlug, markdownToHtml } from '@lib';
 import { Content, PostHead } from './components';
+import { BLOG_URL } from '@constants/url';
+import { NICKNAME } from '@constants/nickname';
 
 interface PostProps {
   params: Promise<{
@@ -20,9 +23,34 @@ export default async function Post(props: PostProps) {
   const content = await markdownToHtml(post.content || '');
 
   return (
-    <section>
+    <section className="px-3 md:px-5">
       <PostHead title={post.title} date={post.date} />
       <Content content={content} />
     </section>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: PostProps): Promise<Metadata> {
+  // read route params
+  const id = (await params).id;
+
+  const post = getPostBySlug(id);
+
+  if (!post) {
+    throw new Error('글이 존재하지 않습니다.');
+  }
+
+  return {
+    metadataBase: new URL(BLOG_URL),
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      url: `${BLOG_URL}/posts/${id}`,
+      siteName: NICKNAME,
+      type: 'website',
+    },
+  };
 }

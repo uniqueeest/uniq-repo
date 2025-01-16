@@ -14,6 +14,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   title: 'uniqueeest',
+  description: 'korea chill guy',
   icons: {
     icon: '/uniqueeest.png',
   },
