@@ -13,7 +13,7 @@ export const Footer = () => {
       <h3
         className={cn(
           'absolute top-3 left-3 lg:top-0 lg:left-10',
-          'text-[80px] font-bold text-gray-12 lg:text-[300px]',
+          'text-[80px] font-bold text-gray-10 lg:text-[300px]',
         )}
       >
         FOOTER

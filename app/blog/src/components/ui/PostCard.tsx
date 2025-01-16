@@ -24,7 +24,7 @@ export const PostCard = ({ post }: PostCardProps) => {
           <p
             className={cn(
               'mb-1',
-              'text-sm break-keep lg:text-base text-blue-12',
+              'text-sm break-keep lg:text-base text-blue-10',
             )}
           >
             {description}
