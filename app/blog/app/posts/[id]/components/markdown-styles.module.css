@@ -1,5 +1,5 @@
 .markdown {
-  @apply w-full text-base leading-relaxed text-gray-12 lg:text-lg;
+  @apply w-full text-base leading-relaxed text-gray-10 lg:text-lg;
 }
 
 /* 기본 텍스트 요소 */
@@ -48,7 +48,7 @@
 
 /* 인라인 코드 */
 .markdown :not(pre) > code {
-  @apply text-xs bg-blue-12 mx-px px-1 py-px rounded lg:text-sm text-white lg:px-1.5 lg:py-0.5;
+  @apply text-xs mx-px px-1 py-px rounded border border-green-10 text-green-10 bg-gray-3 lg:text-sm lg:px-1.5 lg:py-0.5;
 }
 
 .markdown pre > code {
@@ -62,7 +62,7 @@
 
 /* 링크 */
 .markdown a {
-  @apply text-green-10 hover:text-green-12 underline;
+  @apply text-green-7 hover:text-green-9 underline;
 }
 
 /* 구분선 */

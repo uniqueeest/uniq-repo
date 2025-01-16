@@ -19,14 +19,14 @@ export const PostHead = ({ title, date }: PostHeadProps) => {
       )}
     >
       <div className="flex flex-col gap-1 text-end">
-        <p className="text-xs lg:text-sm text-gray-10">
+        <p className="text-xs lg:text-sm text-gray-9">
           {dayjs(date).format('YYYY년 MM월 DD일')}
         </p>
-        <p className="text-base lg:text-xl text-blue-12 font-semibold">
+        <p className="text-base lg:text-xl text-blue-10 font-semibold">
           {NICKNAME}
         </p>
       </div>
-      <h2 className="font-bold text-gray-12 text-3xl lg:text-[50px]">
+      <h2 className="font-bold text-gray-10 text-3xl lg:text-[50px]">
         {title}
       </h2>
     </section>
