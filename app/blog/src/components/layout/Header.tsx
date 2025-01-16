@@ -18,16 +18,16 @@ export const Header = () => {
   };
 
   return (
-    <header className={cn('lg:py-5', 'bg-gray-4 border-b border-b-gray-7')}>
+    <header className={cn('p-3 lg:py-5', 'bg-gray-4 border-b border-b-gray-7')}>
       <div className="flex justify-between lg:center-1280">
         <Link
           href="/"
           className={cn('flex items-center gap-5', 'cursor-pointer')}
         >
           <Image src="/uniqueeest.png" alt="logo" width={40} height={40} />
-          <h1 className="text-2xl font-medium">uniqueeest</h1>
+          <h1 className="hidden lg:block text-2xl font-medium">uniqueeest</h1>
         </Link>
-        <div className="flex items-center lg:gap-2">
+        <div className="flex items-center gap-1 lg:gap-2">
           {CONTACT_LIST.map((contact) => (
             <div key={contact.label}>
               {contact.label === 'mail' ? (
@@ -38,7 +38,7 @@ export const Header = () => {
                   <Image
                     src={contact.img}
                     alt={contact.label}
-                    className="lg:w-10 lg:h-10"
+                    className="w-[30px] h-[30px] lg:w-[38px] lg:h-[38px]"
                     width={0}
                     height={0}
                   />
@@ -52,7 +52,7 @@ export const Header = () => {
                   <Image
                     src={contact.img}
                     alt={contact.label}
-                    className="lg:w-10 lg:h-10"
+                    className="w-8 h-8 lg:w-10 lg:h-10"
                     width={0}
                     height={0}
                   />
