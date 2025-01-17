@@ -14,7 +14,7 @@ export const PostCard = ({ post }: PostCardProps) => {
 
   return (
     <div
-      className={cn('flex flex-col', 'py-3 px-2 lg:py-5', 'hover:bg-gray-3')}
+      className={cn('flex flex-col', 'p-3 md:px-5 lg:py-5', 'hover:bg-gray-3')}
     >
       <Link href={`/posts/${slug}`}>
         <h3 className={cn('mb-4', 'text-xl lg:text-2xl font-semibold')}>
