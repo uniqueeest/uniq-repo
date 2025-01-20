@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import localFont from 'next/font/local';
+import { Toaster } from 'react-hot-toast';
 
 import './globals.css';
 import { Footer, Header } from '@components/layout';
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Toaster />
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
     </html>

@@ -1,5 +1,5 @@
 {
-  "name": "@uniqueeest/token",
+  "name": "@uniqueeest/utils",
   "version": "0.0.1",
   "main": "src/index.ts",
   "scripts": {
@@ -16,8 +16,7 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    },
-    "./css": "./src/index.css"
+    }
   },
   "devDependencies": {
     "tsup": "^8.2.4",

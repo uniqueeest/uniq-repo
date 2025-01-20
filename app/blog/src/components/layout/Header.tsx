@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 import { CONTACT_LIST } from '@constants/contact';
 import { cn } from '@utils';
@@ -10,10 +11,9 @@ export const Header = () => {
   const handleCopyEmail = async (email: string) => {
     try {
       await navigator.clipboard.writeText(email);
-      //TODO: 이후 토스트로 변경 필요
-      alert('복사되었습니다.');
+      toast.success('이메일 주소가 복사되었습니다.');
     } catch (e) {
-      alert('실패했습니다.');
+      toast.error('다시 시도해주세요.');
     }
   };
 
