@@ -2,6 +2,7 @@
 title: 'use-funnel 구현과 안드로이드 웹뷰 History 이슈 해결하기'
 description: '@use-funnel을 참고한 Funnel 구현과 안드로이드 물리 버튼 대응'
 date: '2024-12-21T00:00:00Z'
+tag: ['frontend', 'react']
 ---
 
 최근 토스의 [use-funnel](https://use-funnel.slash.page/ko)을 참고하여 단계별 화면 전환 기능을 구현하던 중, 안드로이드 웹뷰 환경에서 흥미로운 이슈를 만났다. 이 글에서는 기존 구현 방식의 한계와 이를 개선한 과정을 공유하고자 한다.
