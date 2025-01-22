@@ -62,7 +62,7 @@
 
 /* 링크 */
 .markdown a {
-  @apply text-green-7 hover:text-green-9 underline;
+  @apply text-blue-6 hover:text-blue-8 underline;
 }
 
 /* 구분선 */

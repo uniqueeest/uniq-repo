@@ -4,13 +4,14 @@ import dayjs from 'dayjs';
 import { NICKNAME } from '@constants/nickname';
 import { Post } from '@interface/post';
 import { cn } from '@utils';
+import { Tag } from './Tag';
 
 interface PostCardProps {
   post: Post;
 }
 
 export const PostCard = ({ post }: PostCardProps) => {
-  const { title, description, date, slug } = post;
+  const { title, description, date, slug, tag: tagList } = post;
 
   return (
     <div
@@ -29,6 +30,13 @@ export const PostCard = ({ post }: PostCardProps) => {
           >
             {description}
           </p>
+        )}
+        {tagList && (
+          <div className={cn('flex gap-1', 'mt-3 mb-1')}>
+            {tagList.map((tag) => (
+              <Tag key={tag} tag={tag} />
+            ))}
+          </div>
         )}
         <p className="text-sm lg:text-base font-medium">{NICKNAME}</p>
         <p className="text-xs lg:text-sm text-gray-11">

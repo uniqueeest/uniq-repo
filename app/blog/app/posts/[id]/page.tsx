@@ -24,7 +24,7 @@ export default async function Post(props: PostProps) {
 
   return (
     <section className="px-3 md:px-5">
-      <PostHead title={post.title} date={post.date} />
+      <PostHead title={post.title} date={post.date} tagList={post.tag} />
       <Content content={content} />
     </section>
   );
