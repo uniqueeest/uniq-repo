@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/uniqueeest.png',
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_ID,
+  },
 };
 
 export default function RootLayout({
