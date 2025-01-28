@@ -16,5 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   };
 
-  return [rootUrl, ...postUrl];
+  const redirectUrl = {
+    url: `${BLOG_URL}/`,
+    lastModified: new Date(),
+  };
+
+  return [rootUrl, redirectUrl, ...postUrl];
 }
