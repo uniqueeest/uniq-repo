@@ -43,7 +43,7 @@ export const Header = () => {
                   <Image
                     src={contact.img}
                     alt={contact.label}
-                    className="w-[30px] h-[30px] lg:w-[38px] lg:h-[38px]"
+                    className="w-8 h-8 lg:w-10 lg:h-10"
                     width={0}
                     height={0}
                   />
