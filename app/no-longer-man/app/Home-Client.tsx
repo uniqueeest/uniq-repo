@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export const HomeClientPage = () => {
   const [input, setInput] = useState('');
@@ -38,74 +38,56 @@ export const HomeClientPage = () => {
 
   const handleSubmit = () => {
     if (input.trim()) {
+      setResponse('');
       generateResponse(input);
     }
   };
 
   return (
-    <section className="p-4 min-h-screen bg-blue-100">
-      <Image
-        src="/no_longer_human.png"
-        alt="no-longer-human"
-        className=""
-        width={300}
-        height={300}
-      />
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center">
-          <div className="text-3xl font-bold text-purple-800 flex items-center justify-center gap-2">
-            <div className="text-pink-500" />
-            인간이었나 오늘?
-            <div className="text-pink-500" />
-          </div>
-          <p className="text-gray-600"></p>
-        </div>
+    <section className="p-4 min-h-screen bg-gray-5">
+      <article className="max-w-sm mx-auto mb-4 lg:mb-6">
+        <Image
+          src="/no_longer_human.png"
+          alt="no-longer-human"
+          className="w-full"
+          width={300}
+          height={300}
+        />
+      </article>
+      <article className="flex flex-col gap-3 lg:gap-6 mx-auto max-w-2xl">
+        <h1 className="text-center text-blue-9 text-xl font-semibold lg:text-3xl lg:font-bold">
+          인간이었나 오늘?
+        </h1>
         <div>
           <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2"></label>
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="오늘 나는..."
-                className="p-3 w-full h-32 resize-none outline-none"
-              />
-            </div>
-
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="오늘 나는..."
+              className="p-3 w-full h-32 resize-none outline-none"
+            />
             <button
               onClick={handleSubmit}
               disabled={isLoading || !input.trim()}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+              className="flex justify-center items-center p-2 w-full bg-blue-7 hover:bg-blue-8 text-white cursor-pointer"
             >
-              {isLoading ? (
-                <>
-                  <div className="mr-2 h-4 w-4 animate-spin" />
-                  생각하는 중...
-                </>
-              ) : (
-                <>
-                  <div className="mr-2 h-4 w-4" />
-                  긍정적으로 바라보기
-                </>
-              )}
+              {isLoading ? '생각하는 중...' : '긍정적으로 바라보기'}
             </button>
 
             {error && (
-              <div className="p-4 bg-red-50 text-red-800 rounded-lg">
-                {error}
-              </div>
+              <div className="p-4 bg-red-1 text-red-9 rounded-lg">{error}</div>
             )}
 
             {response && !error && (
-              <div className="mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
-                <p className="text-lg text-purple-800 text-center leading-relaxed">
+              <div className="mt-6 p-4 bg-blue-1 rounded-lg">
+                <p className="text-lg text-blue-9 text-center leading-relaxed">
                   {response}
                 </p>
               </div>
             )}
           </div>
         </div>
-      </div>
+      </article>
     </section>
   );
 };
