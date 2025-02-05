@@ -5,7 +5,8 @@
   "scripts": {
     "build": "turbo build",
     "build:p": "turbo build --filter './packages/*'",
-    "dev": "turbo dev  --filter './app/blog'",
+    "dev:blog": "turbo dev --filter=./app/blog",
+    "dev:man": "turbo dev --filter=./app/no-longer-man",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
