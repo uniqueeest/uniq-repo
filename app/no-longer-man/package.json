@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^15.1.5",
     "@uniqueeest/token": "workspace:*",
     "next": "15.1.6",
     "openai": "^4.82.0",
