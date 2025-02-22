@@ -1,6 +1,6 @@
 import { useCallback, useSyncExternalStore } from 'react';
 
-export const useLocalStorage = <T>(key: string) => {
+export function useLocalStorage<T>(key: string) {
   const setStorage = useCallback(
     (value: T) => {
       const newValue =
@@ -26,4 +26,4 @@ export const useLocalStorage = <T>(key: string) => {
   const store = useSyncExternalStore(subscribe, getSnapshot);
 
   return { value: store, set: setStorage, remove: removeStorage };
-};
+}
