@@ -18,7 +18,7 @@
 }
 
 @layer components {
-  .center-1280 {
-    @apply mx-auto my-0 px-0 max-w-[1280px];
+  .center-1020 {
+    @apply mx-auto my-0 px-0 max-w-[1020px];
   }
 }

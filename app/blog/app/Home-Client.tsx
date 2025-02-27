@@ -11,7 +11,7 @@ interface HomePageProps {
 
 export const HomePage = ({ posts }: HomePageProps) => {
   return (
-    <section className="py-3 lg:py-5 lg:center-1280">
+    <section className="py-3 lg:py-5 lg:center-1020">
       <article>
         {posts.map((post) => (
           <PostCard key={post.slug} post={post} />
