@@ -24,7 +24,7 @@ export const Header = () => {
         'bg-gray-3 border-b border-b-gray-5',
       )}
     >
-      <div className="flex justify-between lg:center-1280">
+      <div className="flex justify-between lg:center-1020">
         <Link
           href="/"
           className={cn('flex items-center gap-5', 'cursor-pointer')}

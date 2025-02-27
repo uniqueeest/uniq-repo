@@ -7,7 +7,7 @@
 .markdown ul,
 .markdown ol,
 .markdown blockquote {
-  @apply text-base my-1 lg:break-keep lg:text-lg lg:my-2;
+  @apply text-base my-1 lg:text-lg lg:my-2;
 }
 
 /* 제목 스타일링 */

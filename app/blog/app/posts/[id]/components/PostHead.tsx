@@ -16,7 +16,7 @@ export const PostHead = ({ title, date, tagList }: PostHeadProps) => {
     <section
       className={cn(
         'flex flex-col gap-4',
-        'pt-3 pb-5 lg:pt-5 lg:pb-10 lg:center-1280',
+        'pt-3 pb-5 lg:pt-5 lg:pb-10 lg:center-1020',
         'border-b border-b-gray-8',
       )}
     >
