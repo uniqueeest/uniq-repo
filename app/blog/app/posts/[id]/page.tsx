@@ -5,6 +5,7 @@ import { getPostBySlug, markdownToHtml } from '@lib';
 import { Content, PostHead } from './components';
 import { BLOG_URL } from '@constants/url';
 import { NICKNAME } from '@constants/nickname';
+import { getReadingTime } from '@utils';
 
 interface PostProps {
   params: Promise<{
@@ -20,11 +21,17 @@ export default async function Post(props: PostProps) {
     return notFound();
   }
 
+  const readTime = getReadingTime(post.content);
   const content = await markdownToHtml(post.content || '');
 
   return (
     <section className="px-3 md:px-5">
-      <PostHead title={post.title} date={post.date} tagList={post.tag} />
+      <PostHead
+        title={post.title}
+        date={post.date}
+        tagList={post.tag}
+        readTime={readTime}
+      />
       <Content content={content} />
     </section>
   );

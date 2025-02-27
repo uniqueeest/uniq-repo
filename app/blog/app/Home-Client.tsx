@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-
 import { PostCard } from '@components/ui';
 import { Post } from '@interface/post';
 
