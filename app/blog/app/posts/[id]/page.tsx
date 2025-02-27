@@ -57,7 +57,21 @@ export async function generateMetadata({
       title: post.title,
       url: `${BLOG_URL}/posts/${id}`,
       siteName: NICKNAME,
-      type: 'website',
+      type: 'article',
+      images: [
+        {
+          url: '/meta-image.png',
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: ['/meta-image.png'],
     },
   };
 }

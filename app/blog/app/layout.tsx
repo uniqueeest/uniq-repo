@@ -21,6 +21,25 @@ export const metadata: Metadata = {
   icons: {
     icon: '/uniqueeest.png',
   },
+  openGraph: {
+    title: 'uniqueeest',
+    description: 'korea chill guy',
+    images: [
+      {
+        url: '/meta-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Be uniqueeest',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'uniqueeest',
+    description: 'korea chill guy',
+    images: ['/meta-image.png'],
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_ID,
   },
