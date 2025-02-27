@@ -8,10 +8,11 @@ import { cn } from '@utils';
 interface PostHeadProps {
   title: string;
   date: string;
+  readTime: string;
   tagList?: string[];
 }
 
-export const PostHead = ({ title, date, tagList }: PostHeadProps) => {
+export const PostHead = ({ title, date, readTime, tagList }: PostHeadProps) => {
   return (
     <section
       className={cn(
@@ -37,6 +38,7 @@ export const PostHead = ({ title, date, tagList }: PostHeadProps) => {
           <p className="text-base lg:text-xl text-blue-10 font-semibold">
             {NICKNAME}
           </p>
+          <p className="text-gray-9 text-sm lg:text-base">{readTime}</p>
         </div>
       </div>
       <h2 className="font-bold text-gray-10 text-3xl leading-normal lg:text-[50px]">
