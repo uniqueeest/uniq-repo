@@ -1,4 +1,4 @@
-import { cn } from '@utils';
+import { cn } from '@uniqueeest/utils';
 
 interface TagProps {
   tag: string;

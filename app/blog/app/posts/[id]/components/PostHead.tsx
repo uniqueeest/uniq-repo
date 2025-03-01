@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import { cn } from '@uniqueeest/utils';
 
 import { Tag } from '@components/ui';
 import { NICKNAME } from '@constants/nickname';
-import { cn } from '@utils';
 
 interface PostHeadProps {
   title: string;

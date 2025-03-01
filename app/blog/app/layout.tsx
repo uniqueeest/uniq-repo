@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import localFont from 'next/font/local';
 import { Toaster } from 'react-hot-toast';
+import { cn } from '@uniqueeest/utils';
 
 import './globals.css';
 import '@uniqueeest/token/css';
 import { Footer, Header } from '@components/layout';
-import { cn } from '@utils';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',

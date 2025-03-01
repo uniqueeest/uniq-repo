@@ -1,4 +1,4 @@
-import { cn } from '@utils';
+import { cn } from '@uniqueeest/utils';
 
 import markdownStyles from './markdown-styles.module.css';
 
