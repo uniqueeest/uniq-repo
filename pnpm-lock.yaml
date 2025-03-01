@@ -200,6 +200,9 @@ importers:
 
   packages/token:
     devDependencies:
+      '@uniqueeest/utils':
+        specifier: workspace:*
+        version: link:../utils
       tsup:
         specifier: ^8.2.4
         version: 8.3.5(jiti@1.21.7)(postcss@8.5.1)(typescript@5.7.3)(yaml@2.7.0)

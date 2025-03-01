@@ -1,12 +1,12 @@
 :root {
-	--spacing: 2px;
-	--font-size: 1rem;
-	--radius: 2px;
+  --spacing: 4px;
+  --font-size: 1rem;
+  --radius: 2px;
 }
 
 .dark {
-	--spacing: 2px;
-	--font-size: 1rem;
-	--white: 0 0% 100%;
-	--radius: 2px;
+  --spacing: 4px;
+  --font-size: 1rem;
+  --white: 0 0% 100%;
+  --radius: 2px;
 }

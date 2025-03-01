@@ -41,7 +41,7 @@ export const PostHead = ({ title, date, readTime, tagList }: PostHeadProps) => {
           <p className="text-gray-9 text-sm lg:text-base">{readTime}</p>
         </div>
       </div>
-      <h2 className="font-bold text-gray-10 text-3xl leading-normal lg:text-[50px]">
+      <h2 className="font-bold text-gray-10 text-3xl leading-normal lg:text-size-48">
         {title}
       </h2>
     </section>

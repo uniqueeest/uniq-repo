@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "build:p": "turbo build --filter './packages/*'",
+    "build:p": "turbo build --filter=./packages/*",
     "dev:blog": "turbo dev --filter=./app/blog",
     "dev:man": "turbo dev --filter=./app/no-longer-man",
     "lint": "turbo lint",
