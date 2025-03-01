@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import { Toaster } from 'react-hot-toast';
 
 import './globals.css';
+import '@uniqueeest/token/css';
 import { Footer, Header } from '@components/layout';
 import { cn } from '@utils';
 

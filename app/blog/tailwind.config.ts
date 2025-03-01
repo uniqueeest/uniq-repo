@@ -20,6 +20,7 @@ export default {
       borderRadius: STYLE.borderRadius,
       fontSize: STYLE.fontSize,
       fontWeight: STYLE.fontWeight,
+      spacing: STYLE.spacing,
     },
   },
   plugins: [],
