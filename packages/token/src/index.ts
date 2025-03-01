@@ -1,3 +1,5 @@
+import { createFontSizeScale, createSpaceScale } from '@uniqueeest/utils';
+
 const colors = {
   inherit: 'inherit',
   current: 'currentColor',
@@ -72,21 +74,7 @@ const borderRadius = {
   circle: '50%',
 };
 
-const fontSize = {
-  'size-8': 'calc(var(--font-size) * 0.5)',
-  'size-10': 'calc(var(--font-size) * 0.625)',
-  'size-12': 'calc(var(--font-size) * 0.75)',
-  'size-14': 'calc(var(--font-size) * 0.875)',
-  'size-16': 'calc(var(--font-size) * 1)',
-  'size-18': 'calc(var(--font-size) * 1.125)',
-  'size-20': 'calc(var(--font-size) * 1.25)',
-  'size-24': 'calc(var(--font-size) * 1.5)',
-  'size-28': 'calc(var(--font-size) * 1.75)',
-  'size-32': 'calc(var(--font-size) * 2)',
-  'size-36': 'calc(var(--font-size) * 2.25)',
-  'size-48': 'calc(var(--font-size) * 3)',
-  'size-60': 'calc(var(--font-size) * 3.75)',
-};
+const fontSize = createFontSizeScale(128);
 
 const fontWeight = {
   bold: '700',
@@ -97,9 +85,12 @@ const fontWeight = {
   thin: '200',
 };
 
+const spacing = createSpaceScale(128);
+
 export const STYLE = {
   colors,
   borderRadius,
   fontSize,
   fontWeight,
+  spacing,
 };
