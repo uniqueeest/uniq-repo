@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import { cn } from '@uniqueeest/utils';
 
 import { CONTACT_LIST } from '@constants/contact';
-import { cn } from '@utils';
 
 export const Header = () => {
   const handleCopyEmail = async (email: string) => {

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
+import { cn } from '@uniqueeest/utils';
 
 import { NICKNAME } from '@constants/nickname';
 import { Post } from '@interface/post';
-import { cn } from '@utils';
 import { Tag } from './Tag';
 
 interface PostCardProps {
