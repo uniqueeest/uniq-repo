@@ -10,12 +10,13 @@ React 애플리케이션에서 상태 관리는 항상 중요한 고려 사항�
 ## Observer 패턴이란
 
 Observer 패턴은 소프트웨어 디자인에서 널리 사용되는 행동 디자인 패턴이다. 이 패턴에서는 객체(Subject)가 자신의 상태 변화를 다른 객체들(Observers)에게 자동으로 알린다.
+
 Observer 패턴의 핵심 구성 요소:
 
-Subject(주체): 관찰되는 객체로, 관찰자 목록을 유지하고 변경 사항이 있을 때 이들에게 알림을 보냄.
-Observer(관찰자): Subject의 변경 사항에 반응하는 객체.
-구독 메커니즘: Observer가 Subject에 등록하고 해지할 수 있는 인터페이스.
-알림 메커니즘: Subject의 상태가 변경될 때 모든 Observer에게 알리는 방법.
+- Subject(주체): 관찰되는 객체로, 관찰자 목록을 유지하고 변경 사항이 있을 때 이들에게 알림을 보냄.
+- Observer(관찰자): Subject의 변경 사항에 반응하는 객체.
+- 구독 메커니즘: Observer가 Subject에 등록하고 해지할 수 있는 인터페이스.
+- 알림 메커니즘: Subject의 상태가 변경될 때 모든 Observer에게 알리는 방법.
 
 아래는 간단한 Observer 패턴의 예시이다.
 
@@ -370,7 +371,7 @@ export function useBaseQuery<
 1. 컴포넌트에서 useQuery 호출
 2. QueryObserver 인스턴스 생성 (useBaseQuery 내부)
 3. Query 객체와의 연결 (QueryObserver 생성자 내부):
-   QueryObserver가 생성될 때 내부적으로 다음과 같은 과정이 진행된다:
+   QueryObserver가 생성될 때 내부적으로 다음과 같은 과정이 진행된다.
 
 - QueryClient를 통해 해당 쿼리 키의 Query 객체 찾기 또는 생성
 - QueryObserver가 Query 객체에 자신을 등록
@@ -378,7 +379,7 @@ export function useBaseQuery<
 4. React 컴포넌트 구독 설정 (useSyncExternalStore 사용)
 5. 데이터 변경과 알림 전파
 
-결국 **쿼리 키를 기준으로 구독이 분리** 된다는 것이 핵심이다. 각 쿼리 키마다 별도의 Query 객체가 생성되고, 특정 쿼리 키에 관심 있는 컴포넌트만 해당 Query 객체에 연결된다.
+결국 **쿼리 키를 기준으로 구독이 분리**된다는 것이 핵심이다. 각 쿼리 키마다 별도의 Query 객체가 생성되고, 특정 쿼리 키에 관심 있는 컴포넌트만 해당 Query 객체에 연결된다.
 
 ## 결론
 
