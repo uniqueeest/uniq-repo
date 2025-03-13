@@ -19,20 +19,17 @@ export const Header = () => {
 
   return (
     <header
-      className={cn(
-        'p-3 md:px-5 lg:py-5',
-        'bg-gray-3 border-b border-b-gray-5',
-      )}
+      className={cn('p-3 md:px-4 lg:py-4', 'bg-white border-b border-b-gray-5')}
     >
       <div className="flex justify-between lg:center-1020">
         <Link
           href="/"
           className={cn('flex items-center gap-5', 'cursor-pointer')}
         >
-          <Image src="/uniqueeest.png" alt="logo" width={40} height={40} />
-          <h1 className="hidden lg:block text-2xl font-medium">uniqueeest</h1>
+          <Image src="/uniqueeest.png" alt="logo" width={32} height={32} />
+          <h1 className="hidden lg:block text-xl font-medium">uniqueeest</h1>
         </Link>
-        <div className="flex items-center gap-1 lg:gap-2">
+        <div className="flex items-center gap-4 lg:gap-6">
           {CONTACT_LIST.map((contact) => (
             <div key={contact.label}>
               {contact.label === 'mail' ? (
@@ -43,7 +40,7 @@ export const Header = () => {
                   <Image
                     src={contact.img}
                     alt={contact.label}
-                    className="w-8 h-8 lg:w-10 lg:h-10"
+                    className="w-5 h-5 lg:w-6 lg:h-6"
                     width={0}
                     height={0}
                   />
@@ -57,7 +54,7 @@ export const Header = () => {
                   <Image
                     src={contact.img}
                     alt={contact.label}
-                    className="w-8 h-8 lg:w-10 lg:h-10"
+                    className="w-5 h-5 lg:w-6 lg:h-6"
                     width={0}
                     height={0}
                   />

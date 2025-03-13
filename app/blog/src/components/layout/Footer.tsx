@@ -21,10 +21,10 @@ export const Footer = () => {
       <p
         className={cn(
           'absolute top-3 right-3 lg:top-8 lg:right-12',
-          'text-sm lg:text-xl text-gray-9 lg:font-medium',
+          'text-sm lg:text-base text-gray-9 lg:font-medium',
         )}
       >
-        dbswo9795@gmail.com
+        © 2024 Yoonjae Choi. All rights reserved
       </p>
     </footer>
   );
