@@ -19,7 +19,7 @@ export const Tag = ({ tag, color = 'blue', className }: TagProps) => {
     <div
       className={cn(
         'py-1 px-2 w-fit h-fit',
-        'text-xs lg:text-sm text-white rounded-[10px]',
+        'text-xs lg:text-sm text-white rounded-[4px]',
         color && COLORS[color],
         className,
       )}

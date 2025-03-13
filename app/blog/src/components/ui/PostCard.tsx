@@ -2,23 +2,48 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import { cn } from '@uniqueeest/utils';
 
-import { NICKNAME } from '@constants/nickname';
 import { Post } from '@interface/post';
 import { Tag } from './Tag';
+import { getReadingTime } from '@utils';
 
 interface PostCardProps {
   post: Post;
 }
 
 export const PostCard = ({ post }: PostCardProps) => {
-  const { title, description, date, slug, tag: tagList } = post;
+  const { title, description, date, slug, tag: tagList, content } = post;
+
+  const readTime = getReadingTime(content);
 
   return (
     <div
-      className={cn('flex flex-col', 'p-3 md:px-5 lg:py-5', 'hover:bg-gray-3')}
+      className={cn(
+        'flex flex-col',
+        'p-3 md:px-5 lg:py-5',
+        'rounded-[4px]',
+        'hover:bg-gray-3',
+      )}
     >
       <Link href={`/posts/${slug}`}>
-        <h3 className={cn('mb-4', 'text-xl lg:text-2xl font-semibold')}>
+        <div
+          className={cn(
+            'flex items-center gap-2',
+            'mb-4',
+            'text-xs lg:text-sm text-gray-9',
+          )}
+        >
+          {tagList && (
+            <div className="flex gap-2">
+              {tagList.map((tag) => (
+                <Tag key={tag} tag={tag} />
+              ))}
+            </div>
+          )}
+          <p>{readTime}</p>
+          <p>·</p>
+          <p>{dayjs(date).format('YYYY.MM.DD')}</p>
+        </div>
+        <h3 className={cn('mb-3', 'text-xl lg:text-2xl font-semibold')}>
           {title}
         </h3>
         {description && (
@@ -31,17 +56,6 @@ export const PostCard = ({ post }: PostCardProps) => {
             {description}
           </p>
         )}
-        {tagList && (
-          <div className={cn('flex gap-1', 'mt-3 mb-1')}>
-            {tagList.map((tag) => (
-              <Tag key={tag} tag={tag} />
-            ))}
-          </div>
-        )}
-        <p className="text-sm lg:text-base font-medium">{NICKNAME}</p>
-        <p className="text-xs lg:text-sm text-gray-11">
-          {dayjs(date).format('YYYY.MM.DD')}
-        </p>
       </Link>
     </div>
   );
