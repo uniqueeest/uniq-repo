@@ -6,7 +6,7 @@ export const Footer = () => {
       className={cn(
         'relative',
         'lg:py-5 h-28 lg:h-72',
-        'bg-gray-4',
+        'bg-gray-3',
         'overflow-hidden',
       )}
     >

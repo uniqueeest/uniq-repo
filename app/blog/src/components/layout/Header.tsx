@@ -19,7 +19,10 @@ export const Header = () => {
 
   return (
     <header
-      className={cn('p-3 md:px-4 lg:py-4', 'bg-white border-b border-b-gray-5')}
+      className={cn(
+        'p-3 md:px-4 lg:py-4',
+        'bg-gray-3 border-b border-b-gray-5',
+      )}
     >
       <div className="flex justify-between lg:center-1020">
         <Link
