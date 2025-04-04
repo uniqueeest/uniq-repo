@@ -12,6 +12,6 @@ pnpm build:p
 
 ## project
 
-### [blog](https://www.uniqueeest.site/)
+### [blog](https://www.uniqueeest.com/)
 
 next js 기반의 개인 블로그 프로젝트입니다.
