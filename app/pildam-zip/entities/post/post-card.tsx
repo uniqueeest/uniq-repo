@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { cn } from '@uniqueeest/utils';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 interface PostCardProps {
   title: string;
@@ -38,7 +39,9 @@ export const PostCard = ({
             {description}
           </p>
         </div>
-        <p className="text-sm text-gray-7 font-light">{date}</p>
+        <time className="text-sm text-gray-7 font-light">
+          {dayjs(date).format('YYYY.MM.DD')}
+        </time>
       </article>
     </Link>
   );
