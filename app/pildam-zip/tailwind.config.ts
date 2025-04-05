@@ -3,8 +3,9 @@ import { STYLE } from '@uniqueeest/token';
 
 export default {
   content: [
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './widgets/**/*.{js,ts,jsx,tsx,mdx}',
+    './entities/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -23,5 +24,5 @@ export default {
       spacing: STYLE.spacing,
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 } satisfies Config;
