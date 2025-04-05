@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={cn(pretendard.className, 'flex flex-col min-h-screen')}>
         <Header />
-        <main className="flex-1 mt-16 pb-20 lg:pt-9">{children}</main>
+        <main className="flex-1 mt-16 pb-20 pt-9 px-4">{children}</main>
       </body>
     </html>
   );
