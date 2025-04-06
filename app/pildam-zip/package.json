@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev:content": "velite --watch",
+    "build:content": "velite --clean",
+    "dev:next": "next dev --turbopack",
+    "build:next": "next build",
+    "dev": "next dev --turbopack && velite --watch",
+    "build": "next build && velite --clean",
     "start": "next start",
     "lint": "next lint"
   },
@@ -14,11 +18,14 @@
     "dayjs": "^1.11.13",
     "next": "15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "velite": "^0.2.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

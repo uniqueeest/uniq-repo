@@ -6,6 +6,7 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './widgets/**/*.{js,ts,jsx,tsx,mdx}',
     './entities/**/*.{js,ts,jsx,tsx,mdx}',
+    './shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -22,7 +23,20 @@ export default {
       fontSize: STYLE.fontSize,
       fontWeight: STYLE.fontWeight,
       spacing: STYLE.spacing,
+      typography: {
+        DEFAULT: {
+          css: {
+            p: {
+              marginTop: 0,
+              marginBottom: 0,
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require('@tailwindcss/aspect-ratio')],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+  ],
 } satisfies Config;

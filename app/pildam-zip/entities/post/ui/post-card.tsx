@@ -8,7 +8,7 @@ interface PostCardProps {
   title: string;
   description: string;
   date: string;
-  slug: string;
+  id: string;
   thumbnail?: string;
 }
 
@@ -16,11 +16,11 @@ export const PostCard = ({
   title,
   description,
   date,
-  slug,
+  id,
   thumbnail,
 }: PostCardProps) => {
   return (
-    <Link href={`/${slug}`} className="block group">
+    <Link href={`/${id}`} className="block group">
       <article className={cn('flex flex-col gap-4', 'w-full')}>
         <div className="aspect-w-1 aspect-h-1 bg-gray-2 overflow-hidden">
           <Image
