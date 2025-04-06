@@ -18,6 +18,25 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: '필담집',
   description: '필담집 - 생각을 공유하는 공간',
+  openGraph: {
+    title: '필담집',
+    description: '필담집 - 생각을 공유하는 공간',
+    images: [
+      {
+        url: '/meta-image.png',
+        width: 1200,
+        height: 630,
+        alt: '필담집',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '필담집',
+    description: '필담집 - 생각을 공유하는 공간',
+    images: ['/meta-image.png'],
+  },
 };
 
 export default function RootLayout({
