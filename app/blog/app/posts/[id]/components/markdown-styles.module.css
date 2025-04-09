@@ -61,7 +61,7 @@
 
 /* 인용구 */
 .markdown blockquote {
-  @apply border-l-4 border-gray-200 pl-4 italic;
+  @apply border-l-4 border-green-10 pl-4 italic bg-gray-4;
 }
 
 /* 링크 */
