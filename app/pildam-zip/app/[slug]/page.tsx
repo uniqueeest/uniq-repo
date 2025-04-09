@@ -27,11 +27,9 @@ export default async function PostPage({ params }: PostProps) {
         date={post.date}
         thumbnailUrl={post.thumbnailUrl ? post.thumbnailUrl : '/pildam-zip.png'}
       />
-      <section className="mt-[100vh]">
-        <article className="center-700 mt-16">
-          <div className="prose mx-auto px-4">
-            <MDXContent code={post.body} />
-          </div>
+      <section className="pt-[calc(100vh-84px)]">
+        <article className="center-700 prose px-4">
+          <MDXContent code={post.body} />
         </article>
       </section>
     </>
