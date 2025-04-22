@@ -7,7 +7,7 @@ tag: ['frontend', 'javascript']
 
 scheduling call을 위한 대표적인 API를 꼽자면 `setTimeout`, `setInterval`, 그리고 `requestAnimationFrame`을 꼽을 수 있다. 그러나 우리는 `setTimeout`, `setInterval`과 비교했을 때 `requestAnimationFrame`은 자주 사용하지 않는다. 이 API가 앞서 두 개의 API보다 범용성이 적어서일까? 아니면 앞서 두 개의 API가 더 친숙해서일까?
 
-겪었던 이슈에 대해 설명하며, 애니메이션과 관련된 부분에서 유용하게 사용할 수 있는 requestAnimationFrame을 소개해보려고 한다.
+겪었던 이슈에 대해 설명하며, 애니메이션과 관련된 부분에서 유용하게 사용할 수 있는 `requestAnimationFrame`을 소개해보려고 한다.
 
 ## 이슈
 
