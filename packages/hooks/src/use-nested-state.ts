@@ -20,28 +20,47 @@ import { updateNestedValue } from '@uniqueeest/utils';
  *   'form', 'age'
  * );
  */
-export function useNestedState<T extends Record<string, any>, V = string>(
-  initialState: T,
-) {
+export function useNestedState<
+  T extends Record<string, any>,
+  K extends string = string,
+  V = any,
+>(initialState: T) {
   const [state, setState] = useState<T>(initialState);
 
+  /**
+   * 중첩된 객체의 특정 필드 값을 변경합니다.
+   *
+   * @param newValue 새로운 값
+   * @param validator 유효성 검사 함수 (선택적)
+   * @param keys 변경할 필드 경로
+   */
   const handleChange = (
     newValue: V,
     validator: ((value: V) => V) | null,
-    ...keys: string[]
+    ...keys: K[]
   ) => {
-    // key가 비어있는 경우
     if (keys.length === 0) {
-      throw new Error('Key is required');
+      throw new Error('키 값은 필수입니다');
     }
 
     const validatedValue = validator ? validator(newValue) : newValue;
-    setState((prev) => updateNestedValue(prev, keys, validatedValue));
+    setState((prev) => updateNestedValue<T, K, V>(prev, keys, validatedValue));
   };
 
-  const handleBlur = (currentValue: V, fallbackValue: V, ...keys: string[]) => {
+  /**
+   * 필드 값이 비어있을 때 기본값을 설정합니다.
+   *
+   * @param currentValue 현재 값
+   * @param fallbackValue 기본값
+   * @param keys 필드 경로
+   */
+  const handleBlur = (currentValue: V, fallbackValue: V, ...keys: K[]) => {
+    if (keys.length === 0) {
+      throw new Error('키 값은 필수입니다');
+    }
+
     const finalValue = currentValue || fallbackValue;
-    handleChange(finalValue, null, ...keys);
+    setState((prev) => updateNestedValue<T, K, V>(prev, keys, finalValue));
   };
 
   return { state, handleChange, handleBlur };
