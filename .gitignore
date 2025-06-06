@@ -48,3 +48,6 @@ dist-ssr
 .pnpm-store/
 
 .turbo
+
+# Test coverage
+**/coverage/
