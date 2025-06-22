@@ -6,7 +6,9 @@ import { cn } from '@uniqueeest/utils';
 
 import './globals.css';
 import '@uniqueeest/token/css';
-import { Footer, Header } from '@components/layout';
+
+import { Header } from '@widgets/Header';
+import { Footer } from '@widgets/Footer';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',

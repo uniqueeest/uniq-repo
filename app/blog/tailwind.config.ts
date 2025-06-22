@@ -2,10 +2,7 @@ import type { Config } from 'tailwindcss';
 import { STYLE } from '@uniqueeest/token';
 
 export default {
-  content: [
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {

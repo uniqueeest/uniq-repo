@@ -1,1 +1,0 @@
-export { getReadingTime } from './calculateReadingTime';
