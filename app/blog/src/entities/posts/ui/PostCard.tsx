@@ -2,9 +2,9 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import { cn } from '@uniqueeest/utils';
 
-import { Post } from '@interface/post';
+import { Post } from '../model/types';
 import { Tag } from './Tag';
-import { getReadingTime } from '@utils';
+import { getReadingTime } from '../lib/calculateReadingTime';
 
 interface PostCardProps {
   post: Post;

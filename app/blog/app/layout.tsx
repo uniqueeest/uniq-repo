@@ -6,7 +6,9 @@ import { cn } from '@uniqueeest/utils';
 
 import './globals.css';
 import '@uniqueeest/token/css';
-import { Footer, Header } from '@components/layout';
+
+import { Header } from '@widgets/Header';
+import { Footer } from '@widgets/Footer';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -55,7 +57,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={cn(pretendard.className, 'flex flex-col min-h-screen')}>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-16">{children}</main>
         <Footer />
         <Toaster />
       </body>

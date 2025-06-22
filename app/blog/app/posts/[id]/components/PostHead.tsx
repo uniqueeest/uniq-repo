@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { cn } from '@uniqueeest/utils';
 
-import { Tag } from '@components/ui';
+import { Tag } from '@entities/posts/ui/Tag';
 
 interface PostHeadProps {
   title: string;
