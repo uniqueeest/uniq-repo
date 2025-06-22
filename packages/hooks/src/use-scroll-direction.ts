@@ -5,7 +5,7 @@ const TOP_OFFSET_THRESHOLD = 50;
 
 type ScrollDirection = 'up' | 'down';
 
-interface UseScrollDirectionOptions {
+export interface UseScrollDirectionOptions {
   threshold?: number;
   topOffsetThreshold?: number;
 }
