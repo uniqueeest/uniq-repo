@@ -3,16 +3,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { cn } from '@uniqueeest/utils';
+import { useScrollDirection } from '@uniqueeest/hooks';
 
 import { CONTACT_LIST } from '../shared/constants/contact';
 
 export const Header = () => {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const scrollDirection = useScrollDirection();
+
   const isArticlePage = pathname.startsWith('/posts');
+  const shouldHiding =
+    scrollDirection === 'down' ? '-translate-y-[64px]' : 'translate-y-0';
 
   const handleCopyEmail = async (email: string) => {
     try {
@@ -23,24 +26,6 @@ export const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      setIsScrolled(scrollPosition > windowHeight - 30);
-    };
-
-    handleScroll();
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
-
   return (
     <header
       className={cn(
@@ -48,9 +33,7 @@ export const Header = () => {
         'h-16 px-4 lg:px-10',
         'bg-white/80 backdrop-blur-sm z-40 border-b border-gray-3',
         'transition-all duration-300',
-        isArticlePage && !isScrolled
-          ? 'opacity-0 pointer-events-none'
-          : 'opacity-100',
+        isArticlePage && shouldHiding,
       )}
     >
       <div
