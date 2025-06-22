@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { BLOG_URL } from '@constants/url';
+import { BLOG_URL } from '@shared/constants/url';
 
 export default function robots(): MetadataRoute.Robots {
   return {
