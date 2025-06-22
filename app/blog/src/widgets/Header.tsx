@@ -2,12 +2,18 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { cn } from '@uniqueeest/utils';
 
-import { CONTACT_LIST } from '@constants/contact';
+import { CONTACT_LIST } from '../shared/constants/contact';
 
 export const Header = () => {
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isArticlePage = pathname.startsWith('/posts');
+
   const handleCopyEmail = async (email: string) => {
     try {
       await navigator.clipboard.writeText(email);
@@ -17,14 +23,42 @@ export const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setIsScrolled(scrollPosition > windowHeight - 30);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
   return (
     <header
       className={cn(
-        'p-3 md:px-4 lg:py-4',
-        'bg-gray-3 border-b border-b-gray-5',
+        'fixed top-0 left-0 right-0',
+        'h-16 px-4 lg:px-10',
+        'bg-white/80 backdrop-blur-sm z-40 border-b border-gray-3',
+        'transition-all duration-300',
+        isArticlePage && !isScrolled
+          ? 'opacity-0 pointer-events-none'
+          : 'opacity-100',
       )}
     >
-      <div className="flex justify-between lg:center-1020">
+      <div
+        className={cn(
+          'flex justify-between items-center',
+          'h-full lg:center-1020',
+        )}
+      >
         <Link
           href="/"
           className={cn('flex items-center gap-5', 'cursor-pointer')}
