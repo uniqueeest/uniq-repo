@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: STYLE.colors.gray[2],
+        background: STYLE.colors.gray[1],
         gray: STYLE.colors.gray,
         blue: STYLE.colors.blue,
         green: STYLE.colors.green,
