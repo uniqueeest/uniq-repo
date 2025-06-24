@@ -2,30 +2,18 @@ import { cn } from '@uniqueeest/utils';
 
 export const Footer = () => {
   return (
-    <footer
-      className={cn(
-        'relative',
-        'lg:py-5 h-28 lg:h-72',
-        'bg-gray-3',
-        'overflow-hidden',
-      )}
-    >
-      <h3
+    <footer className={cn('relative', 'py-6', 'border-t border-gray-5')}>
+      <div
         className={cn(
-          'absolute top-3 left-3 lg:top-0 lg:left-10',
-          'text-[100px] font-bold text-gray-10 lg:text-[300px]',
+          'flex justify-between items-center',
+          'px-4 lg:center-720',
+          'h-full',
         )}
       >
-        FOOTER
-      </h3>
-      <p
-        className={cn(
-          'absolute top-3 right-3 lg:top-8 lg:right-12',
-          'text-sm lg:text-base text-gray-9 lg:font-medium',
-        )}
-      >
-        © 2024 Yoonjae Choi. All rights reserved
-      </p>
+        <p className="text-sm text-gray-9">
+          © 2024 Yoonjae Choi. All rights reserved
+        </p>
+      </div>
     </footer>
   );
 };
