@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { cn } from '@uniqueeest/utils';
 
-import { Tag } from '@entities/posts/ui/Tag';
+import { Tag } from './Tag';
 
 interface PostHeadProps {
   title: string;
@@ -16,7 +16,7 @@ export const PostHead = ({ title, date, readTime, tagList }: PostHeadProps) => {
     <section
       className={cn(
         'flex flex-col gap-4',
-        'py-6 lg:py-8 lg:center-1020',
+        'py-6 lg:py-8 lg:center-720',
         'border-b border-b-gray-8',
       )}
     >
