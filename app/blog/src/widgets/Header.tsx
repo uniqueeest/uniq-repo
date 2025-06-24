@@ -39,7 +39,7 @@ export const Header = () => {
       <div
         className={cn(
           'flex justify-between items-center',
-          'h-full lg:center-1020',
+          'h-full lg:center-720',
         )}
       >
         <Link

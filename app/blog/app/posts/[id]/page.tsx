@@ -3,10 +3,11 @@ import { notFound } from 'next/navigation';
 
 import { getPostBySlug } from '@entities/posts/api';
 import { getReadingTime } from '@entities/posts/lib/calculateReadingTime';
+import { PostContent } from '@entities/posts/ui/PostContent';
+import { PostHead } from '@entities/posts/ui/PostHead';
 import { markdownToHtml } from '@shared/lib/markdownToHtml';
 import { BLOG_URL } from '@shared/constants/url';
 import { NICKNAME } from '@shared/constants/nickname';
-import { Content, PostHead } from './components';
 
 interface PostProps {
   params: Promise<{
@@ -33,7 +34,7 @@ export default async function Post(props: PostProps) {
         tagList={post.tag}
         readTime={readTime}
       />
-      <Content content={content} />
+      <PostContent content={content} />
     </section>
   );
 }

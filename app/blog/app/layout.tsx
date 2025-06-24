@@ -57,7 +57,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={cn(pretendard.className, 'flex flex-col min-h-screen')}>
         <Header />
-        <main className="flex-1 pt-16">{children}</main>
+        <main className="flex-1 mt-16">{children}</main>
         <Footer />
         <Toaster />
       </body>
