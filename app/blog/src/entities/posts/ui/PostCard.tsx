@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { cn } from '@uniqueeest/utils';
+import { posts } from '@/.velite';
 
-import { Post } from '../model/types';
 import { Tag } from './Tag';
 import { getReadingTime } from '../lib/calculateReadingTime';
+
+type Post = (typeof posts)[number];
 
 interface PostCardProps {
   post: Post;
