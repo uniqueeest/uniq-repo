@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { posts } from '@/.velite';
-
 import { BLOG_URL } from '@shared/constants/url';
+import { getSortedPosts } from '@shared/lib/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const sortedPosts = getSortedPosts();
+
   // 블로그 포스트 URL
-  const postUrls = posts.map((post) => ({
+  const postUrls = sortedPosts.map((post) => ({
     url: `${BLOG_URL}/posts/${post.slug}`,
     lastModified: post.date || new Date().toISOString(),
   }));
