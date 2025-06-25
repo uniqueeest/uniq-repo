@@ -3,6 +3,7 @@ title: '당신이 setTimeout 대신 requestAnimiationFrame을 써야 되는 이�
 description: '브라우저의 렌더링 성능을 최적화하는 requestAnimationFrame'
 date: '2025-04-10T00:00:00Z'
 tag: ['frontend', 'javascript']
+id: 'request-animation-frame'
 ---
 
 scheduling call을 위한 대표적인 API를 꼽자면 `setTimeout`, `setInterval`, 그리고 `requestAnimationFrame`을 꼽을 수 있다. 그러나 우리는 `setTimeout`, `setInterval`과 비교했을 때 `requestAnimationFrame`은 자주 사용하지 않는다. 이 API가 앞서 두 개의 API보다 범용성이 적어서일까? 아니면 앞서 두 개의 API가 더 친숙해서일까?

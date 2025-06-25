@@ -1,11 +1,9 @@
 import type { MetadataRoute } from 'next';
+import { posts } from '@/.velite';
 
 import { BLOG_URL } from '@shared/constants/url';
-import { getAllPosts } from '@entities/posts/api';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts();
-
   // 블로그 포스트 URL
   const postUrls = posts.map((post) => ({
     url: `${BLOG_URL}/posts/${post.slug}`,

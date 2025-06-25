@@ -1,7 +1,7 @@
+@import 'prism-themes/themes/prism-one-dark.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'prism-themes/themes/prism-one-dark.css';
 
 @layer base {
   body {

@@ -3,6 +3,7 @@ title: '안드로이드 웹뷰에서 Next.js Router History 이슈 해결하기'
 description: '안드로이드 webview에서의 history stack'
 date: '2024-12-10T00:00:00Z'
 tag: ['frontend', 'nextjs']
+id: 'webview-history'
 ---
 
 React Native와 Next.js로 하이브리드 웹앱을 개발하던 중 안드로이드 웹뷰에서 이슈를 만났다.

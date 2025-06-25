@@ -3,6 +3,7 @@ title: '멀티파트 업로드로 API Gateway 제한 극복하기'
 description: '10MB의 제한을 벗어나기 위해'
 date: '2024-10-28T00:00:00Z'
 tag: ['frontend', 'multipart']
+id: 'multipart-upload'
 ---
 
 최근 프로젝트에서 파일 업로드 구현 중 AWS API Gateway의 10MB 제한에 부딪혔다.
