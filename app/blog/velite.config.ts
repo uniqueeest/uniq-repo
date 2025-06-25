@@ -1,7 +1,7 @@
 import { defineConfig, s, defineCollection } from 'velite';
 import rehypePrism from 'rehype-prism-plus';
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
+const computedFields = <T extends { slug: string; date: string }>(data: T) => ({
   ...data,
   slug: data.slug.split('/').pop()?.replace(/\.md$/, '') || data.slug,
   slugAsParams: data.slug.split('/').slice(1).join('/'),
