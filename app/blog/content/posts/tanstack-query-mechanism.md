@@ -3,6 +3,7 @@ title: 'TanStack Query의 선택적 구독 메커니즘 분석'
 description: 'Tanstack Query는 어떻게 서버 데이터를 관리할까?'
 date: '2025-03-08T00:00:00Z'
 tag: ['frontend', 'react']
+id: 'tanstack-query-mechanism'
 ---
 
 React 애플리케이션에서 상태 관리는 항상 중요한 고려 사항이다. Context API는 간단하게 전역 상태를 관리할 수 있는 방법을 제공하지만, 불필요한 재렌더링이라는 단점이 있다. 이에 비해 TanStack Query(이전의 React Query)는 상태 관리, 특히 서버 데이터를 위한 효율적인 솔루션을 제공한다. TanStack Query가 어떻게 Context API의 한계를 극복하고 선택적 구독 메커니즘을 구현했는지 살펴보려고 한다.
