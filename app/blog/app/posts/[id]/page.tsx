@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-
-import { getPostBySlug } from '@entities/posts/api';
+import { posts } from '@/.velite';
 import { getReadingTime } from '@entities/posts/lib/calculateReadingTime';
 import { PostContent } from '@entities/posts/ui/PostContent';
 import { PostHead } from '@entities/posts/ui/PostHead';
-import { markdownToHtml } from '@shared/lib/markdownToHtml';
 import { BLOG_URL } from '@shared/constants/url';
 import { NICKNAME } from '@shared/constants/nickname';
 
@@ -15,16 +13,21 @@ interface PostProps {
   }>;
 }
 
+export function generateStaticParams() {
+  return posts.map((post) => ({
+    id: post.slug,
+  }));
+}
+
 export default async function Post(props: PostProps) {
   const params = await props.params;
-  const post = getPostBySlug(params.id);
+  const post = posts.find((p) => p.slug === params.id);
 
   if (!post) {
     return notFound();
   }
 
   const readTime = getReadingTime(post.content);
-  const content = await markdownToHtml(post.content || '');
 
   return (
     <section className="px-3 md:px-5">
@@ -34,7 +37,7 @@ export default async function Post(props: PostProps) {
         tagList={post.tag}
         readTime={readTime}
       />
-      <PostContent content={content} />
+      <PostContent content={post.content} />
     </section>
   );
 }
@@ -42,10 +45,8 @@ export default async function Post(props: PostProps) {
 export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
-  // read route params
   const id = (await params).id;
-
-  const post = getPostBySlug(id);
+  const post = posts.find((p) => p.slug === id);
 
   if (!post) {
     throw new Error('글이 존재하지 않습니다.');
