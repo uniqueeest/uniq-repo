@@ -55,13 +55,18 @@
   @apply text-xs mx-px px-1 py-px rounded border border-green-10 text-green-10 bg-gray-3 lg:text-sm lg:px-1.5 lg:py-0.5;
 }
 
-.markdown pre > code {
-  @apply text-xs lg:text-sm;
+/* 코드 블록 */
+.markdown pre {
+  @apply bg-gray-3 p-4 rounded-lg;
+}
+
+.markdown pre code {
+  @apply text-xs lg:text-sm bg-gray-3;
 }
 
 /* 인용구 */
 .markdown blockquote {
-  @apply border-l-4 border-green-10 pl-4 italic bg-gray-4;
+  @apply border-l-4 border-green-10 py-2 pl-4 italic bg-gray-3;
 }
 
 /* 링크 */
