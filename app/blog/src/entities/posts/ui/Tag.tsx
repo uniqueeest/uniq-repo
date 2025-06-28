@@ -8,13 +8,13 @@ interface TagProps {
 
 const COLORS = {
   red: 'bg-red-7',
-  green: 'bg-green-7',
+  green: 'bg-green-8',
   blue: ' bg-blue-7',
   yellow: 'bg-yellow-7',
   gray: 'bg-gray-7',
 };
 
-export const Tag = ({ tag, color = 'blue', className }: TagProps) => {
+export const Tag = ({ tag, color = 'green', className }: TagProps) => {
   return (
     <div
       className={cn(
