@@ -1,4 +1,4 @@
-import { cn } from './cn';
+import { cn } from '../src/cn';
 
 describe('cn utility function', () => {
   it('should properly merge Tailwind classes', () => {
