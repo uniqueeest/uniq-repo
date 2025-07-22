@@ -4,18 +4,31 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "package.json",
+        "tsconfig*.json",
+        "tsup.config.ts"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
     "test": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "test/**/*.{ts,tsx}",
+        "package.json",
+        "vitest.config.ts"
+      ]
     }
   },
   "remoteCache": {

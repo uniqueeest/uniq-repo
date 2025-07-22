@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "pnpm clean && tsup",
+    "build:watch": "tsup --watch",
     "clean": "rm -rf dist"
   },
   "exports": {
