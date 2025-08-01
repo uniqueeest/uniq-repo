@@ -1,7 +1,7 @@
 ---
 title: 'CORS, 숨겨진 preflight 확인하기'
 description: 'origin header는 사라지지 않는다.'
-date: '2025-07-01T00:00:00Z'
+date: '2025-08-01T00:00:00Z'
 tag: ['frontend', 'network', 'CORS']
 id: 'cors'
 ---
