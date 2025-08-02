@@ -8,7 +8,7 @@
     "dev:next": "next dev --turbopack",
     "build:next": "next build",
     "dev": "next dev --turbopack && velite --watch",
-    "build": "next build && velite --clean",
+    "build": "velite --clean && next build",
     "start": "next start",
     "lint": "next lint"
   },
