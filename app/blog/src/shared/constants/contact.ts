@@ -9,9 +9,4 @@ export const CONTACT_LIST = [
     img: '/github.svg',
     link: 'https://github.com/uniqueeest',
   },
-  {
-    label: 'mail',
-    img: '/mail.svg',
-    link: 'dbswo9795@gmail.com',
-  },
 ];
