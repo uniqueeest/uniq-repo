@@ -7,6 +7,9 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "inputs": [
         "src/**/*.{ts,tsx}",
+        "app/**/*.{ts,tsx}",
+        "content/**/*.md",
+        "velite.config.ts",
         "package.json",
         "tsconfig*.json",
         "tsup.config.ts"
