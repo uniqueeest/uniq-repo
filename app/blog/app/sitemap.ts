@@ -17,5 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date().toISOString(),
   };
 
-  return [mainUrl, ...postUrls];
+  const aboutUrl = {
+    url: `${BLOG_URL}/about`,
+    lastModified: new Date().toISOString(),
+  };
+
+  return [mainUrl, aboutUrl, ...postUrls];
 }
