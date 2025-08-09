@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Navigation } from '@shared/ui/Navigation';
+import { Navigation } from '@features/Navigation';
 import { cn } from '@uniqueeest/utils';
 import { BLOG_URL } from '@shared/constants/url';
 import { NICKNAME } from '@shared/constants/nickname';

@@ -1,7 +1,7 @@
 import { cn } from '@uniqueeest/utils';
 import { PostCard } from '@entities/posts/ui/PostCard';
 import { getSortedPosts } from '@shared/lib/posts';
-import { Navigation } from '@shared/ui/Navigation';
+import { Navigation } from '@features/Navigation';
 
 export default function Home() {
   const sortedPosts = getSortedPosts();
