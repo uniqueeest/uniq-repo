@@ -1,67 +1,229 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-});
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { JSDOM } from 'jsdom';
+import { Readability } from '@mozilla/readability';
 
 export async function POST(request: Request) {
   try {
     const { text } = await request.json();
 
-    const prompt = `지금 이 인간실격 당한 친구를 동물원 동물 취급해줘야 됨
+    if (!process.env.GOOGLE_API_KEY) {
+      return NextResponse.json(
+        { error: '서버 환경변수 GOOGLE_API_KEY가 설정되지 않았습니다.' },
+        { status: 500 },
+      );
+    }
 
-    답변 예시:
-    "와 축하드립니다 님 이제 동물원 신규 입주 동물과 동급이시네요? 저희 동물원에는 매일 바나나 놓치는 침팬지, 굴러서 먹이채집하는 팬더, 그리고 실수해서 인간실격 맞으신 님까지... 구경하시라고요 어서 ㅋㅋ"
-    
-    "아 드디어 님도 동물원 식구가 되시는군요? ㅋㅋ 저희 동물원엔 목 자르다가 넘어지는 기린, 대나무 놓치는 판다, 인간자격 반납하신 님까지... 이제 입장료 받아도 되겠네요~"
-    
-    답변 조건:
-    1. 동물원 해설하듯이 비꼬기
-    2. 실수하는 동물들이랑 같이 분류하기
-    3. "축하드립니다" 같은 비꼬는 말투
-    4. 동물원 관람객한테 설명하는 식으로 마무리
-    5. 꼭 가장 구린(?) 동물들이랑 비교
-    6. 2~3문장으로 작성
-    
-    더 예시:
-    "오 이제 님도 저희 동물특별전시관 신규 전시동물이시네요 ㅎㅎ 하루종일 바나나 까먹는 원숭이, 벽에 박는 플라밍고, 그리고 방금 인간자격 반납하신 님까지... 구경하세요 여러분~ 특별 먹이주기 체험도 가능합니다~"
-    
-    상황: ${text}`;
+    if (!text || typeof text !== 'string') {
+      return NextResponse.json(
+        { error: 'text 필드가 필요합니다.' },
+        { status: 400 },
+      );
+    }
+
+    const systemPrompt = `당신은 신뢰성 있는 뉴스 분석가입니다. 사용자가 제공한 미국 뉴스 기사 내용을 한국어로 명확하고 간결하게 요약합니다.
+
+**원칙:**
+- **사실 우선:** 기사에 언급된 정보만을 사용하여 요약하며, 과장이나 추측은 절대 금지합니다.
+- **객관적 어조:** 중립적이고 담백한 전문가의 시각으로 작성합니다.
+- **한국 독자 고려:** 최소한의 배경 맥락만 간결하게 제공합니다.
+- **불충분한 정보:** 본문이 100자 미만이거나, 기사의 주요 정보(주체, 사건, 결과)를 파악하기에 불충분할 경우, 즉시 '본문 필요'라고만 응답합니다.
+
+**출력 형식:**
+제목: <기사의 핵심을 담은 한글 제목>
+요약: <기사 전체를 아우르는 한 문장 요약>
+핵심 포인트:
+- <요약을 뒷받침하는 주요 사실 1>
+- <주요 사실 2>
+- <주요 사실 3>
+왜 중요한가: <이 뉴스가 가진 의미나 파급효과를 설명하는 한 단락>
+주의/논란: <기사에 언급된 비판이나 논쟁의 여지가 있는 내용을 한 문장으로 요약. 해당 내용이 없을 경우 생략>`;
+
+    // 입력값이 URL이라고 가정하고 본문을 크롤링/추출
+    let articleText = '';
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      const res = await fetch(text, {
+        headers: {
+          'user-agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121 Safari/537.36',
+          accept:
+            'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9,ko;q=0.8',
+          referer: 'https://www.investing.com/',
+          'sec-fetch-dest': 'document',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-site': 'same-origin',
+          'upgrade-insecure-requests': '1',
+        },
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const html = await res.text();
+        const dom = new JSDOM(html, { url: text });
+        const doc = dom.window.document;
+        const reader = new Readability(doc);
+        const parsed = reader.parse();
+        let rawText = parsed?.textContent?.trim() ?? '';
+
+        // Fallback 1: DOM 셀렉터(야후 caas 등)
+        if (!rawText || rawText.length < 400) {
+          const selectorCandidates = [
+            '.caas-body p',
+            'article p',
+            '[data-test-locator="story-container"] p',
+            '.article-body p',
+            '.post-content p',
+            '.news-article p',
+          ];
+
+          for (const sel of selectorCandidates) {
+            const nodeList = doc.querySelectorAll(sel);
+            if (nodeList.length > 0) {
+              const nodes: HTMLElement[] = Array.from(
+                nodeList,
+              ) as unknown as HTMLElement[];
+              const joined = nodes
+                .map((p) => (p.textContent ?? '').toString().trim())
+                .filter((t) => t.length > 0)
+                .join('\n');
+              if (joined.length > rawText.length) {
+                rawText = joined;
+              }
+            }
+          }
+        }
+
+        // Fallback 2: JSON-LD에서 articleBody 추출
+        if (!rawText || rawText.length < 400) {
+          const ldList = doc.querySelectorAll(
+            'script[type="application/ld+json"]',
+          );
+          const ldScripts: HTMLScriptElement[] = Array.from(
+            ldList,
+          ) as unknown as HTMLScriptElement[];
+          for (const s of ldScripts) {
+            try {
+              const textContent = s.textContent ?? '';
+              if (!textContent) continue;
+              const parsedUnknown: unknown = JSON.parse(textContent);
+              const items: unknown[] = Array.isArray(parsedUnknown)
+                ? parsedUnknown
+                : [parsedUnknown];
+              for (const item of items) {
+                if (typeof item !== 'object' || item === null) continue;
+                const rec = item as Record<string, unknown>;
+                const typeVal = rec['@type'];
+                const isNews =
+                  (typeof typeVal === 'string' &&
+                    (typeVal === 'NewsArticle' || typeVal === 'Article')) ||
+                  (Array.isArray(typeVal) &&
+                    (typeVal as unknown[]).includes('NewsArticle'));
+                if (!isNews) continue;
+                const bodyVal = rec['articleBody'] ?? rec['description'];
+                if (
+                  typeof bodyVal === 'string' &&
+                  bodyVal.length > rawText.length
+                ) {
+                  rawText = bodyVal;
+                }
+              }
+            } catch {}
+          }
+        }
+
+        // Fallback 3: r.jina.ai 프록시로 텍스트 뷰 가져오기
+        if (!rawText || rawText.length < 400) {
+          try {
+            const proxied =
+              'https://r.jina.ai/http/' + text.replace(/^https?:\/\//, '');
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 2000); // ⏱️ 2초 제한
+            const r2 = await fetch(proxied, {
+              headers: {
+                'user-agent':
+                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121 Safari/537.36',
+              },
+              signal: controller.signal,
+            });
+            clearTimeout(timeout);
+
+            if (r2.ok) {
+              const t2 = await r2.text();
+              if (t2 && t2.length > rawText.length) rawText = t2;
+            }
+          } catch (err) {
+            console.warn('Fallback 3 (jina.ai) failed:', err);
+          }
+        }
+
+        // 너무 긴 텍스트는 잘라서 요약 효율 유지
+        articleText =
+          rawText.length > 24000 ? rawText.slice(0, 24000) : rawText;
+      }
+    } catch (e) {
+      console.warn('Fetch/Parse failed for URL:', text, e);
+    }
+
+    const userPrompt = articleText
+      ? `[기사 URL]\n${text}\n\n[기사 본문]\n${articleText}\n\n요구사항:\n- 위 출력 형식을 따르세요.\n- 한국어로 작성하세요.`
+      : `[기사 URL]\n${text}\n\n[기사 본문]\n(제공되지 않음)\n\n요구사항:\n- 본문이 없으므로 즉시 \"본문 필요\"라고만 답하세요.`;
 
     // 디버깅을 위한 로그 추가
     console.log('Received text:', text);
 
-    try {
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content:
-              '당신은 신랄하고 비꼬는 동물원 해설사입니다. 제시된 예시문과 최대한 비슷한 톤과 구조로 답변해야 하며, 반드시 예시문 중 하나의 시작 문구를 그대로 사용해야 합니다. ("와 축하드립니다", "아 드디어", "오 이제" 중 하나로 시작) 실수하는 동물들과 함께 나열하면서 비꼬아야 하고, 마지막은 관람객을 위한 해설로 끝나야 합니다.',
-          },
-          {
-            role: 'user',
-            content:
-              prompt +
-              '\n\n반드시 위 예시문 중 하나처럼 시작해야 합니다. ("와 축하드립니다 님", "아 드디어 님도", "오 이제 님도" 중 하나로 시작할 것)',
-          },
-        ],
-        temperature: 0.9,
-      });
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
-      const response = completion.choices[0].message.content;
-      console.log('Response text:', response);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.0-flash',
+      systemInstruction: systemPrompt,
+    });
 
-      return NextResponse.json({ message: response });
-    } catch (modelError) {
-      console.error('Model error:', modelError);
-      return NextResponse.json(
-        { error: 'AI 모델 응답 생성 중 오류가 발생했습니다.' },
-        { status: 500 },
-      );
-    }
+    const result = await model.generateContentStream({
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text: userPrompt,
+            },
+          ],
+        },
+      ],
+      generationConfig: {
+        temperature: 0.3,
+      },
+    });
+
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            if (chunkText) {
+              controller.enqueue(encoder.encode(chunkText));
+            }
+          }
+        } catch (modelError) {
+          console.error('Model stream error:', modelError);
+          controller.error(modelError);
+          return;
+        }
+        controller.close();
+      },
+    });
+
+    // Fetch API와 ReadableStream을 통한 클라이언트 소비를 고려해 text/plain으로 스트림 반환
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
+      },
+    });
   } catch (error) {
     console.error('General error:', error);
     return NextResponse.json(
