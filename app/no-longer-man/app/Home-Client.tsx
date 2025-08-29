@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
 export const HomeClientPage = () => {
   const [input, setInput] = useState('');
@@ -26,8 +25,22 @@ export const HomeClientPage = () => {
         throw new Error('응답 생성에 실패했습니다.');
       }
 
-      const data = await response.json();
-      setResponse(data.message);
+      if (!response.body) {
+        throw new Error('스트림 본문이 없습니다.');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        if (value) {
+          const chunk = decoder.decode(value, { stream: !doneReading });
+          setResponse((prev) => prev + chunk);
+        }
+      }
     } catch (err) {
       setError('죄송합니다. 잠시 후 다시 시도해주세요.');
       console.error('Error:', err);
@@ -36,7 +49,8 @@ export const HomeClientPage = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (input.trim()) {
       setResponse('');
       generateResponse(input);
@@ -45,33 +59,28 @@ export const HomeClientPage = () => {
 
   return (
     <section className="p-4 min-h-screen bg-gray-5">
-      <article className="max-w-sm mx-auto mb-4 lg:mb-6">
-        <Image
-          src="/no_longer_human.png"
-          alt="no-longer-human"
-          className="w-full"
-          width={300}
-          height={300}
-        />
-      </article>
       <article className="flex flex-col gap-3 lg:gap-6 mx-auto max-w-2xl">
         <h1 className="text-center text-blue-9 text-xl font-semibold lg:text-3xl lg:font-bold">
-          인간이었나 오늘?
+          미국 뉴스 번역기
         </h1>
+        <h2 className="text-center text-gray-9 text-sm lg:text-base">
+          이곳에 미국 뉴스 링크를 붙여넣으면 요약해드립니다.
+        </h2>
         <div>
-          <div className="space-y-6">
-            <textarea
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="오늘 나는..."
-              className="p-3 w-full h-32 resize-none outline-none"
+              placeholder="미국 뉴스 링크"
+              className="p-3 w-full h-12 resize-none outline-none"
             />
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={isLoading || !input.trim()}
               className="flex justify-center items-center p-2 w-full bg-blue-7 hover:bg-blue-8 text-white cursor-pointer"
             >
-              {isLoading ? '생각하는 중...' : '긍정적으로 바라보기'}
+              {isLoading ? '번역 중...' : '번역하기'}
             </button>
 
             {error && (
@@ -80,12 +89,12 @@ export const HomeClientPage = () => {
 
             {response && !error && (
               <div className="mt-6 p-4 bg-blue-1 rounded-lg">
-                <p className="text-lg text-blue-9 text-center leading-relaxed">
+                <pre className="whitespace-pre-wrap break-words text-lg text-blue-9 text-left leading-relaxed">
                   {response}
-                </p>
+                </pre>
               </div>
             )}
-          </div>
+          </form>
         </div>
       </article>
     </section>
