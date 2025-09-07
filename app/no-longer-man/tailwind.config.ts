@@ -1,10 +1,12 @@
 import type { Config } from 'tailwindcss';
+import { heroui } from '@heroui/theme';
 import { STYLE } from '@uniqueeest/token';
 
 export default {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -22,5 +24,5 @@ export default {
       fontWeight: STYLE.fontWeight,
     },
   },
-  plugins: [],
+  plugins: [heroui()],
 } satisfies Config;
