@@ -7,7 +7,6 @@
     "build:p": "turbo build --filter=./packages/*",
     "watch:packages": "turbo build:watch --filter=./packages/* --parallel",
     "dev:blog": "turbo dev --filter=./app/blog",
-    "dev:man": "turbo dev --filter=./app/no-longer-man",
     "dev:pildam": "turbo dev --filter=./app/pildam-zip",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
