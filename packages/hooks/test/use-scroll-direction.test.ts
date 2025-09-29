@@ -62,6 +62,12 @@ describe('useScrollDirection', () => {
     );
   });
 
+  it('enabled가 false일 때 스크롤 이벤트 리스너가 등록되지 않아야 한다.', () => {
+    renderHook(() => useScrollDirection({ enabled: false }));
+
+    expect(mockAddEventListener).not.toHaveBeenCalled();
+  });
+
   it('컴포넌트 언마운트 시 스크롤 이벤트 리스너가 제거되어야 한다.', () => {
     const { unmount } = renderHook(() => useScrollDirection());
 

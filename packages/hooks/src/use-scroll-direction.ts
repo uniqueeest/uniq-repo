@@ -8,6 +8,7 @@ type ScrollDirection = 'up' | 'down';
 export interface UseScrollDirectionOptions {
   threshold?: number;
   topOffsetThreshold?: number;
+  enabled?: boolean;
 }
 
 /**
@@ -35,6 +36,7 @@ export const useScrollDirection = (options?: UseScrollDirectionOptions) => {
   const {
     threshold = SCROLL_THRESHOLD,
     topOffsetThreshold = TOP_OFFSET_THRESHOLD,
+    enabled = true,
   } = options || {};
 
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>('up');
@@ -72,6 +74,9 @@ export const useScrollDirection = (options?: UseScrollDirectionOptions) => {
   }, [handleScroll]);
 
   useEffect(() => {
+    // enabled가 false일 때는 스크롤 이벤트 리스너를 등록하지 않는다.
+    if (!enabled) return;
+
     window.addEventListener('scroll', requestTick, { passive: true });
 
     return () => {
