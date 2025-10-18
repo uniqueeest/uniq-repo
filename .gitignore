@@ -51,3 +51,6 @@ dist-ssr
 
 # Test coverage
 **/coverage/
+
+# AGENTS
+AGENTS.md
