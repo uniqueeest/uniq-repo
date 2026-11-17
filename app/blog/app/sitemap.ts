@@ -1,26 +1,20 @@
 import type { MetadataRoute } from 'next';
 import { BLOG_URL } from '@shared/constants/url';
-import { getSortedPosts } from '@shared/lib/posts';
+import { getAllTags, getSortedPosts } from '@shared/lib/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const sortedPosts = getSortedPosts();
+  const posts = getSortedPosts();
+  const latest = posts[0]?.date;
 
-  // 블로그 포스트 URL
-  const postUrls = sortedPosts.map((post) => ({
-    url: `${BLOG_URL}/posts/${post.slug}`,
-    lastModified: post.date || new Date().toISOString(),
-  }));
-
-  // 메인 페이지
-  const mainUrl = {
-    url: BLOG_URL.replace(/\/$/, ''),
-    lastModified: new Date().toISOString(),
-  };
-
-  const aboutUrl = {
-    url: `${BLOG_URL}/about`,
-    lastModified: new Date().toISOString(),
-  };
-
-  return [mainUrl, aboutUrl, ...postUrls];
+  return [
+    { url: BLOG_URL, lastModified: latest },
+    { url: `${BLOG_URL}/about` },
+    ...getAllTags().map(([tag]) => ({
+      url: `${BLOG_URL}/tags/${encodeURIComponent(tag)}`,
+    })),
+    ...posts.map((post) => ({
+      url: `${BLOG_URL}/posts/${post.slug}`,
+      lastModified: post.date,
+    })),
+  ];
 }
