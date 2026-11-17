@@ -29,14 +29,15 @@ Network 탭에서 All 필터로 모든 요청을 자세히 봤더니, 진짜 원
 
 Preflight 요청은 다음 조건 중 하나라도 만족하면 브라우저가 자동으로 보낸다.
 
-- Content-Type이 application/json이 아닌 경우
-- Authorization이나 커스텀 헤더가 포함된 경우
+- 메서드가 GET, HEAD, POST가 아닌 경우
+- Authorization이나 커스텀 헤더처럼 CORS 허용 목록(safelist) 밖의 헤더가 포함된 경우
+- Content-Type이 `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain`이 아닌 경우 (즉, `application/json`도 Preflight 대상이다)
 
 이번 요청은 GET 메서드였지만 커스텀 헤더를 포함하고 있었기 때문에 Preflight 요청이 발생한 거였다.
 
 문제는 백엔드 서버가 이 OPTIONS 메서드 요청을 허용하지 않거나, 인증 절차 없이 접근하는 걸 막고 있었던 것이다. 브라우저는 Preflight 요청이 실패하면 보안상의 이유로 본 요청 자체를 보내지 않고 CORS 오류를 띄워버린다.
 
-결국 진짜 원인은 Preflight 요청이 서버에서 403 에러를 반환하며 실패했기 때문이다. Chrome 개발자 도구에서 Origin 헤더가 안 보였던 건 그냥 UI 문제였고, 다른 브라우저(Safari)에서 확인했을 때 origin 헤더가 정상적으로 보내지는 것이 확인되었다.
+결국 진짜 원인은 Preflight 요청이 서버에서 403 에러를 반환하며 실패했기 때문이다. Chrome 개발자 도구에서 Origin 헤더가 안 보였던 것도 같은 이유였다. Preflight가 실패하면 본 요청은 실제로 전송되지 않기 때문에, Chrome은 "Provisional headers are shown"과 함께 임시 헤더만 보여주고 여기에는 Origin이 빠져 있다. 다른 브라우저(Safari)에서 확인했을 때도 origin 헤더는 정상적으로 붙어 있었다.
 
 ## 회고
 

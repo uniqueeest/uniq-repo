@@ -57,7 +57,7 @@ const { data } = useQuery({
 });
 ```
 
-이 코드를 실행하면, 컴포넌트는 ['todos'] 쿼리 키에 대한 관찰자로 등록된다. 해당 쿼리의 데이터가 변경될 때만 이 컴포넌트가 재렌더링된다.
+이 코드를 실행하면, 컴포넌트는 ['todos'] 쿼리 키에 대한 관찰자로 등록된다. 다른 쿼리 키의 변경에는 반응하지 않고, 이 쿼리의 상태 중에서도 컴포넌트가 실제로 꺼내 쓴 값(`data`, `isFetching`, `status` 등)이 바뀔 때만 재렌더링된다.
 
 ### QueryClient와 QueryCache의 역할
 
@@ -81,13 +81,11 @@ QueryCache는 모든 쿼리 인스턴스를 저장하고, 각 쿼리는 자신�
 
 ```ts
 export class QueryCache extends Subscribable<QueryCacheListener> {
-  #queries: Map<string, Query<any, any, any, any>> = new Map();
-  #queriesMap: Map<QueryKey, QueryStoreItem[]> = new Map();
-  #config: QueryCacheConfig;
+  #queries: QueryStore; // Map<queryHash, Query>
 
-  constructor(config?: QueryCacheConfig) {
+  constructor(public config: QueryCacheConfig = {}) {
     super();
-    this.#config = config || {};
+    this.#queries = new Map<string, Query>();
   }
 
   // 쿼리 키로 쿼리 조회
@@ -128,7 +126,7 @@ export class QueryCache extends Subscribable<QueryCacheListener> {
 
 ### 실제 구현 분석
 
-TanStack Query의 [소스 코드](https://github.com/TanStack/query)를 살펴보면, 구독 메커니즘이 어떻게 구현되어 있는지 더 자세히 알 수 있다. 핵심 파일은 `query.ts`와 `queryCache.ts`이다.
+TanStack Query의 [소스 코드](https://github.com/TanStack/query/tree/v5.67.1)(글 작성 시점인 v5.67.1 기준)를 살펴보면, 구독 메커니즘이 어떻게 구현되어 있는지 더 자세히 알 수 있다. 핵심 파일은 `query.ts`와 `queryCache.ts`이다.
 
 #### QueryObserver 클래스
 
@@ -205,12 +203,12 @@ class QueryObserver<
 Query 클래스는 개별 쿼리의 상태와 관찰자를 관리한다:
 
 ```ts
-export class Query
+export class Query<
   TQueryFnData = unknown,
   TError = DefaultError,
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
-> {
+> extends Removable {
   queryKey: TQueryKey
   queryHash: string
   observers: Array<QueryObserver<any, any, any, any, any>>
@@ -218,15 +216,18 @@ export class Query
 
   #cache: QueryCache
   #client: QueryClient
-  ...
+  // ...
 
   constructor(config: QueryConfig<TQueryFnData, TError, TData, TQueryKey>) {
-    this.#queryHash = config.queryHash
-    this.#queryKey = config.queryKey
-    this.#cache = this.#client.getQueryCache()
-    this.#client = config.client
-    this.state = config.state ?? this.#initialState
+    super()
     // ...
+    this.observers = []
+    this.#client = config.client
+    this.#cache = this.#client.getQueryCache()
+    this.queryKey = config.queryKey
+    this.queryHash = config.queryHash
+    this.state = config.state ?? this.#initialState
+    this.scheduleGc()
   }
 
   // 옵저버 추가
@@ -335,6 +336,8 @@ export function useBaseQuery<
   // 낙관적 결과 가져오기 - 데이터 페칭 전에도 UI에 표시할 수 있는 결과
   const result = observer.getOptimisticResult(defaultedOptions);
 
+  const shouldSubscribe = !isRestoring && options.subscribed !== false;
+
   // React 18의 useSyncExternalStore를 사용한 구독 설정
   React.useSyncExternalStore(
     React.useCallback(
@@ -371,14 +374,12 @@ export function useBaseQuery<
 
 1. 컴포넌트에서 useQuery 호출
 2. QueryObserver 인스턴스 생성 (useBaseQuery 내부)
-3. Query 객체와의 연결 (QueryObserver 생성자 내부):
-   QueryObserver가 생성될 때 내부적으로 다음과 같은 과정이 진행된다.
-
-- QueryClient를 통해 해당 쿼리 키의 Query 객체 찾기 또는 생성
-- QueryObserver가 Query 객체에 자신을 등록
-
-4. React 컴포넌트 구독 설정 (useSyncExternalStore 사용)
-5. 데이터 변경과 알림 전파
+3. Query 객체 찾기 또는 생성 (QueryObserver 생성자 내부):
+   QueryObserver가 생성될 때 `setOptions`를 거치며 QueryCache에서 해당 쿼리 키의 Query 객체를 찾고, 없으면 새로 만든다. 이 시점에는 아직 Query에 자신을 등록하지 않는다.
+4. React 컴포넌트 구독 설정 (useSyncExternalStore 사용):
+   `observer.subscribe`로 첫 리스너가 붙으면 `onSubscribe`가 호출되고, 이때 비로소 `query.addObserver(this)`로 Query 객체에 자신을 등록한다.
+5. 데이터 변경과 알림 전파:
+   Query의 상태가 바뀌면 `#dispatch`가 등록된 옵저버들의 `onQueryUpdate`를 호출하고, 옵저버는 컴포넌트가 사용하는 값이 바뀐 경우에만 React에 알린다.
 
 결국 **쿼리 키를 기준으로 구독이 분리**된다는 것이 핵심이다. 각 쿼리 키마다 별도의 Query 객체가 생성되고, 특정 쿼리 키에 관심 있는 컴포넌트만 해당 Query 객체에 연결된다.
 
