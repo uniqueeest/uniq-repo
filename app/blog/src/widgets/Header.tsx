@@ -1,59 +1,44 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { cn } from '@uniqueeest/utils';
-import { useScrollDirection } from '@uniqueeest/hooks';
+import { ThemeToggle } from '@features/ThemeToggle';
+import { NICKNAME } from '@shared/constants/nickname';
 
-import { CONTACT_LIST } from '../shared/constants/contact';
+const NAV_ITEMS = [
+  { href: '/posts', label: '글' },
+  { href: '/about', label: '소개' },
+];
 
 export const Header = () => {
   const pathname = usePathname();
-  const scrollDirection = useScrollDirection();
-
-  const isArticlePage = pathname.startsWith('/posts');
-  const shouldHiding =
-    scrollDirection === 'down' ? '-translate-y-[64px]' : 'translate-y-0';
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0',
-        'h-16 px-4 lg:px-10',
-        'bg-white/80 backdrop-blur-sm z-40 border-b border-gray-3',
-        'transition-all duration-300',
-        isArticlePage && shouldHiding,
-      )}
-    >
-      <div
-        className={cn(
-          'flex justify-between items-center',
-          'h-full lg:center-720',
-        )}
-      >
-        <Link
-          href="/"
-          className={cn('flex items-center gap-5', 'cursor-pointer')}
-        >
-          <Image src="/uniqueeest.png" alt="logo" width={32} height={32} />
-          <h1 className="hidden lg:block text-xl font-medium">uniqueeest</h1>
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-5">
+        <Link href="/" className="text-[15px] font-bold tracking-[-0.01em]">
+          {NICKNAME}
         </Link>
-        <div className="flex items-center gap-3 lg:gap-4">
-          {CONTACT_LIST.map((contact) => (
-            <div key={contact.label}>
-              <a href={contact.link} target="_blank" rel="noopener noreferrer">
-                <Image
-                  src={contact.img}
-                  alt={contact.label}
-                  className="w-6 h-6 lg:w-7 lg:h-7"
-                  width={0}
-                  height={0}
-                />
-              </a>
-            </div>
-          ))}
-        </div>
+        <nav className="flex items-center gap-1 sm:gap-3">
+          {NAV_ITEMS.map(({ href, label }) => {
+            const isActive = pathname.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={isActive ? 'page' : undefined}
+                className={`relative px-2.5 py-5 text-sm transition-colors ${
+                  isActive
+                    ? 'text-ink after:absolute after:inset-x-1 after:bottom-[-1px] after:h-0.5 after:bg-accent'
+                    : 'text-muted hover:text-ink'
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
+          <ThemeToggle />
+        </nav>
       </div>
     </header>
   );
