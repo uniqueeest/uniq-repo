@@ -1,30 +1,9 @@
-import { cn } from '@uniqueeest/utils';
+import Link from 'next/link';
 
-interface TagProps {
-  tag: string;
-  color?: 'red' | 'green' | 'blue' | 'yellow' | 'gray';
-  className?: string;
-}
+export const tagHref = (tag: string) => `/tags/${encodeURIComponent(tag)}`;
 
-const COLORS = {
-  red: 'bg-red-7',
-  green: 'bg-green-8',
-  blue: ' bg-blue-7',
-  yellow: 'bg-yellow-7',
-  gray: 'bg-gray-7',
-};
-
-export const Tag = ({ tag, color = 'green', className }: TagProps) => {
-  return (
-    <div
-      className={cn(
-        'py-1 px-2 w-fit h-fit',
-        'text-xs lg:text-sm text-white rounded-[4px]',
-        color && COLORS[color],
-        className,
-      )}
-    >
-      {tag}
-    </div>
-  );
-};
+export const Tag = ({ tag }: { tag: string }) => (
+  <Link href={tagHref(tag)} className="text-[13px] text-subtle transition-colors hover:text-ink">
+    #{tag}
+  </Link>
+);

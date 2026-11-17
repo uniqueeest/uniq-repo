@@ -1,32 +1,39 @@
-import { defineConfig, s, defineCollection } from 'velite';
-import rehypePrism from 'rehype-prism-plus';
-
-const computedFields = <T extends { slug: string; date: string }>(data: T) => ({
-  ...data,
-  slug: data.slug.split('/').pop()?.replace(/\.md$/, '') || data.slug,
-  slugAsParams: data.slug.split('/').slice(1).join('/'),
-});
+import { defineConfig, defineCollection, s } from 'velite';
+import rehypeSlug from 'rehype-slug';
+import rehypePrettyCode from 'rehype-pretty-code';
 
 const posts = defineCollection({
   name: 'Post',
-  pattern: 'posts/**/*.md',
+  pattern: 'posts/**/*.{md,mdx}',
   schema: s
     .object({
-      slug: s.path(),
+      path: s.path(),
       title: s.string().max(99),
       description: s.string().max(999),
       date: s.isodate(),
-      tag: s.array(s.string()).optional(),
-      content: s.markdown({
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        rehypePlugins: [rehypePrism as any],
-      }),
+      tag: s.array(s.string()).default([]),
+      draft: s.boolean().default(false),
+      toc: s.toc(),
+      body: s.mdx(),
     })
-    .transform(computedFields),
+    .transform(({ path, ...data }) => ({
+      ...data,
+      slug: path.split('/').pop()!,
+    })),
 });
 
 export default defineConfig({
-  collections: {
-    posts,
+  collections: { posts },
+  mdx: {
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypePrettyCode,
+        {
+          theme: { light: 'github-light', dark: 'github-dark-dimmed' },
+          keepBackground: false,
+        },
+      ],
+    ],
   },
 });
